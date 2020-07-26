@@ -1,6 +1,7 @@
 // const Joi = require('joi');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/data')
+mongoose
+    .connect('mongodb://localhost/data')
     .then(() => console.log('connect to database'))
     .catch((err)=> console.error('not connected to database', err))
 

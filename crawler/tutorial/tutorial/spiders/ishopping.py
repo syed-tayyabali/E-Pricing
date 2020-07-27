@@ -39,14 +39,16 @@ class Ishopping(scrapy.Spider):
             return price
         
         yield{
-            'name': response.xpath("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[1]/div[1]/div[2]/h1/text()")[0].get(),
+            'heading': response.xpath("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[1]/div[1]/div[2]/h1/text()")[0].get(),
             'price': price("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/span[1]/span[1]/text()"),
             'product_url': response.meta.get("product_url"),
             'productSmallImg': response.meta.get("productSmallImg"),
             'productLargeImg': response.xpath("//div[@class='row main-product-info']/div[1]/div[3]/div[2]/div[1]/img[1]/@src").get(),
-            'specs': response.xpath("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[4]/div[1]/div[1]/div[1]/div[1]/table[1]").get(),
-            'detail': [response.xpath("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[4]/div[1]/div[1]/div[1]/div[1]/p[1]").get(),
+            'description': response.xpath("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[4]/div[1]/div[1]/div[1]/div[1]/table[1]").get(),
+            'overview': [response.xpath("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[4]/div[1]/div[1]/div[1]/div[1]/p[1]").get(),
                         response.xpath("//div[@class='main-container marg-top-bot-25 b bg']/div[2]/div[2]/div[1]/form[1]/div[4]/div[1]/div[1]/div[1]/div[1]/p[4]").get()],
-            'category': response.meta.get('current_category')    
-        
+            'category': response.meta.get('current_category'), 
+            'seller_key': 'ishopping',
+            'seller_keyID': 5,
+            'type': 75
         }

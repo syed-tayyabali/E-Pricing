@@ -9,7 +9,7 @@ import logging
 import pymongo
 
 class MyshopPipeline(object):
-    collection_name = 'Myshop_tb'
+    collection_name = 'Products_tb'
 
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri

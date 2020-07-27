@@ -29,13 +29,15 @@ class MyShop(scrapy.Spider):
             return price
         
         yield{
-            'name': response.xpath("//div[@class='page-wrapper']/main[1]/div[2]/div[1]/div[1]/div[1]/h1[1]/span[1]/text()").get(),
+            'heading': response.xpath("//div[@class='page-wrapper']/main[1]/div[2]/div[1]/div[1]/div[1]/h1[1]/span[1]/text()").get(),
             'price': price("//div[@class='page-wrapper']/main[1]/div[2]/div[1]/div[1]/div[3]/div[1]/span/span/span/text()"),
             'product_url': response.meta.get("product_url"),
             'productSmallImg': response.meta.get("productSmallImg"),
             'productLargeImg': response.xpath("//div[@class='fotorama-item fotorama fotorama1595672202832 fotorama--fullscreen']/div[2]/div[1]/div[3]/div[2]/img[1]/@src").get(),
-            'spec': response.xpath("//div[@class='product info detailed vertical']/div[1]/div[2]/div[1]/table").get(),
-            'detail': response.xpath("//div[@class='product info detailed vertical']/div[1]/div[4]/div[1]/div[1]").get(),
-            'category': response.meta.get('current_category')
-        
+            'description': response.xpath("//div[@class='product info detailed vertical']/div[1]/div[2]/div[1]/table").get(),
+            'overview': response.xpath("//div[@class='product info detailed vertical']/div[1]/div[4]/div[1]/div[1]").get(),
+            'category': response.meta.get('current_category'),
+            'seller_key': 'myshop',
+            'seller_keyID': 4,
+            'type': 25
         }

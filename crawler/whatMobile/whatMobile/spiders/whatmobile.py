@@ -68,5 +68,8 @@ class Nextpage(scrapy.Spider):
             # 'productSmallImg1': img_url + response.meta.get('productSmallImg1'),
             'productLargeImg': img_url + response.xpath("//div[@id='centerContainer']/div/div[2]/div/div[3]/div/img/@src").get(),
             'description': extract_with_css("table.specs"),
-            'category': response.meta.get('current_category')
+            'category': response.meta.get('current_category'),
+            'seller_key': 'whatmobile',
+            'seller_keyID': 1,
+            'type': 50
         }

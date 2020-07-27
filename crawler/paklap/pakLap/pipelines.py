@@ -8,8 +8,7 @@
 import logging
 import pymongo
 class PaklapPipeline(object):
-
-        collection_name = 'paklap_tb'
+        collection_name = 'Products_tb'
 
         def __init__(self, mongo_uri, mongo_db):
             self.mongo_uri = mongo_uri

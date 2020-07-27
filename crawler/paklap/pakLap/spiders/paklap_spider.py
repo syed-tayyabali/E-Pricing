@@ -49,12 +49,14 @@ class PaklabSpider(scrapy.Spider):
             return price
         
         yield{
-            'name': response.xpath("//main/div[2]/div[1]/div[1]/div[1]/h1/span/text()").get(),
+            'heading': response.xpath("//main/div[2]/div[1]/div[1]/div[1]/h1/span/text()").get(),
             'price': price("//main/div[2]/div[1]/div[1]/div[3]/div[1]/span/span/span/text()"),
             'product_url': response.meta.get("product_url"),
             'productSmallImg': response.meta.get("productSmallImg"),
             'productLargeImg': response.xpath("//div[@class='product media']/div[2]/div/div/div/div/div/div/img/@src").get(),
             'category': response.meta.get('current_category'),
-            'specs': response.xpath("//main/div[2]/div[1]/div[4]/div[1]/div[2]/div[1]/table[@class='data table additional-attributes']").get(),
-
+            'description': response.xpath("//main/div[2]/div[1]/div[4]/div[1]/div[2]/div[1]/table[@class='data table additional-attributes']").get(),
+            'seller_key': 'paklap',
+            'seller_keyID': 6,
+            'type': 25
         }

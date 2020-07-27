@@ -8,10 +8,14 @@ mongoose
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
-const whatmobile = require('./routes/whatmobile');
+const products = require('./routes/Products');
+const productType = require('./routes/productType');
+const webCollection = require('./routes/webCollection');
 
 app.use(express.json());
-app.use('/api/whatmobile', whatmobile)
+app.use('/api/products', products);
+app.use('/api/productType', productType);
+app.use('/api/webcollections', webCollection)
 
 // app.use(function(req,res,next){
 //     console.log('loading');
@@ -32,4 +36,4 @@ if(app.get('env') === 'development'){
 }
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log('listening {$port}...'));
+app.listen(port, () => console.log(`listening Port${port}...`));

@@ -38,5 +38,8 @@ class WhatPriceSpider(scrapy.Spider):
             'product_url': web_url + response.meta.get("product_url"),
             'productSmallImg': web_url + response.meta.get("productSmallImg"),
             'productLargeImg': web_url + response.xpath("//main[@class='tm-content']/article[1]/div[1]/div[1]/div[1]/div[1]/img/@src").get(),
-            'description': response.xpath("//div[@class='tm-page-bg']/div[1]/div[1]/div[3]/div[1]/main/article/div/div[1]/div[2]/div[1]/dl").get()
+            'description': response.xpath("//div[@class='tm-page-bg']/div[1]/div[1]/div[3]/div[1]/main/article/div/div[1]/div[2]/div[1]/dl").get(),
+            'seller_key': 'whatprice',
+            'seller_keyID': 2,
+            'type': 50
             }

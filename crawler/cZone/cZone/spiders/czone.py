@@ -33,15 +33,17 @@ class Czone(scrapy.Spider):
             return price
         
         yield{
-            'name': response.xpath("//div[@class='template']/div[@class='col-lg-8 col-md-8 col-sm-8 col-xs-12']/div/div/h1/text()").get(),
+            'heading': response.xpath("//div[@class='template']/div[@class='col-lg-8 col-md-8 col-sm-8 col-xs-12']/div/div/h1/text()").get(),
             'price': price("//div[@class='container main-container headerOffset']/div[2]/div[1]/div[2]/div[2]/div[1]/div[5]/div[1]/span[1]/text()"),
             'product_url': web_url + response.meta.get("product_url"),
             'productSmallImg': web_url + response.meta.get("productSmallImg"),
             'productLargeImg': web_url + response.xpath("//div[@id='divProductDetail']/div[@class='template']/div[1]/div[1]/div[1]/a/@href").get(),
-            'specifications': [response.xpath("//div[@class='template']/div[2]/div[1]/div[@class='col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding product-properties']/div[4]/text()").get(),
+            'description': [response.xpath("//div[@class='template']/div[2]/div[1]/div[@class='col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding product-properties']/div[4]/text()").get(),
                                response.xpath("//div[@class='template']/div[2]/div[1]/div[@class='col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding product-properties']/div[5]/ul").get()
                                ],
             'overview': response.xpath("//div[@class='row']/div[@class='product-tab w100 clearfix']/div[1]/div[1]/div[1]/div[1]").get(),
-            'category': response.meta.get('current_category')   
-
+            'category': response.meta.get('current_category'),
+            'seller_key': 'czone',   
+            'seller_keyID': 3,
+            'type': 25
         }

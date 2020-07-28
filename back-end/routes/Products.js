@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { products, query } = require('../models/ProductsModel');
 
-//ALL MOBILE LISTENIG
+//ALL PRODUCT LISTENIG
 router.get('/', async (req, res) => {
     let size = parseInt(req.query.size) || 20;
     let pageNo = parseInt(req.query.pageNo);
@@ -19,17 +19,17 @@ router.get('/', async (req, res) => {
     res.send(productList);
 });
 
-//SPECIFIC MOBILE DESCRIPTION
+//SPECIFIC PRODUCT DESCRIPTION
 router.get('/:id', async (req, res) => {
     var _id = new mongoose.Types.ObjectId(req.params.id);
     const product = await products.findOne({ _id }).select('heading price product_url productSmallImg productLargeImg description');
     if (!product)
-        return res.status(404).send('the mobile with the given id is not found');
+        return res.status(404).send('the product with the given id is not found');
 
     res.send(product);
 });
 
-//PRODUCTTYPE FILTER
+//PRODUCT TYPE FILTER
 router.get('/type/:typeId', async (req, res) => {
     let size = parseInt(req.query.size) || 20;
     let pageNo = parseInt(req.query.pageNo);
@@ -52,8 +52,8 @@ router.get('/webCollection/:seller_keyID', async (req, res) => {
         return res.send(response)
     }
 
-    const webCollectionList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('seller_keyID seller_key heading price')
-    res.send(webCollectionList);
+    const webCollectionProductList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('seller_keyID seller_key heading price')
+    res.send(webCollectionProductList);
 })
 
 router.get('/type/:typeId/:seller_keyID', async (req, res) => {

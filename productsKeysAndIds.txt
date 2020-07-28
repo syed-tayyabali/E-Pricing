@@ -1,9 +1,12 @@
 whatmobile = 1 (mobile)
 whatprice = 2 (mobile)
+
 czone = 3 (laptop)
 myshop = 4 (laptop)
 paklap = 6 (laptop)
+
 ishopping = 5 (tablets)
+tablets= 7 (tablets)
 
 25 = laptop
 50 = mobile

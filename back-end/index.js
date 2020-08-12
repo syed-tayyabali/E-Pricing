@@ -26,10 +26,6 @@ app.use('/api/webcollections', webCollection)
 //     next();
 // });
 
-app.get('/', (req, res) => {
-    res.send('hello');
-});
-
 if(app.get('env') === 'development'){
     app.use(morgan('tiny'));
     console.log('Morgan enable...');

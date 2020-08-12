@@ -1,5 +1,6 @@
 whatmobile = 1 (mobile)
 whatprice = 2 (mobile)
+priceoye = 8 (mobile)
 
 czone = 3 (laptop)
 myshop = 4 (laptop)

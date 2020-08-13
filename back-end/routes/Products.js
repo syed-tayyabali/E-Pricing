@@ -39,7 +39,7 @@ router.get('/type/:typeId', async (req, res) => {
         return res.send(response)
     }
 
-    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('type heading price');
+    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('type heading price productLargeImg');
     res.send(productList);
 });
 

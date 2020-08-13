@@ -12,7 +12,7 @@ class App extends Component {
     let routes = (
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/category' component={Home} />
+        <Route exact path='/category' component={Category} />
         <Route exact path='/products/:id' component={Products} />
         {/* <Redirect to='/' /> */}
       </Switch>

@@ -22,12 +22,19 @@ class Products extends Component {
 
     componentDidMount() {
         this.props.getProducts(this.state.id)
+        console.log(this.props);
     }
 
     render() {
         return (
             <div>
-                <h2>{this.state.id}</h2>
+                {this.props.products.map((product) => (
+                    <div>
+                        <h5>{product.heading}</h5>
+                        <h5>{product.price}</h5>
+                        <img src={`${product.productLargeImg}`}></img>
+                    </div>
+                ))}
             </div>
         );
     }

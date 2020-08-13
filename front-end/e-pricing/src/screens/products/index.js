@@ -14,8 +14,14 @@ class Products extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.match.params.id !== this.props.match.params.id) {
-            this.setState({ id: this.props.match.params.id })
+            this.setState({ id: this.props.match.params.id }, () => {
+                this.props.getProducts(this.state.id)
+            })
         }
+    }
+
+    componentDidMount() {
+        this.props.getProducts(this.state.id)
     }
 
     render() {
@@ -34,7 +40,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    const { products, loading } = state.Products;
+    const { products, loading } = state.products;
     return {
         products,
         loading

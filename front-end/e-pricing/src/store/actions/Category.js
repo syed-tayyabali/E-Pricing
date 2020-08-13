@@ -1,6 +1,6 @@
 import { CATEGORY_ACTIONS } from "../../constants/actions";
 import { request, success, failure } from './index';
-import { getCategoriesAsync } from '../../service/categoryService';
+import { getCategoriesAsync } from '../../service/CategoryService';
 
 
 function getCategories() {

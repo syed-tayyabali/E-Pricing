@@ -100,7 +100,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    const { categories, loading } = state.Category;
+    const { categories, loading } = state.category;
     return {
         categories,
         loading,

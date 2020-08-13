@@ -74,7 +74,7 @@ class Layout extends Component {
                             </a>
                             <div className={dropDownClass} aria-labelledby="navbarDropdown">
                                 {this.props.categories.map((category, index) => (
-                                    <NavLink to="/laptop" className="dropdown-item text-dark">{category.name}</NavLink>
+                                    <NavLink to={`/products/${category._id}`} className="dropdown-item text-dark">{category.name}</NavLink>
                                 ))}
                             </div>
                         </li>
@@ -100,7 +100,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    const { categories, loading } = state.category;
+    const { categories, loading } = state.Category;
     return {
         categories,
         loading,

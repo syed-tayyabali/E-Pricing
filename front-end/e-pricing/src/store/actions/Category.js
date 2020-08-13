@@ -8,8 +8,8 @@ function getCategories() {
         dispatch(request(CATEGORY_ACTIONS.GET_CATEGORIES_REQUEST));
         try {
             const res = await getCategoriesAsync();
-            const categores = res.data;
-            dispatch(success(CATEGORY_ACTIONS.GET_CATEGORIES_SUCCESS, categores));
+            const categories = res.data;
+            dispatch(success(CATEGORY_ACTIONS.GET_CATEGORIES_SUCCESS, categories));
         } catch(e) {
             dispatch(failure(CATEGORY_ACTIONS.GET_CATEGORIES_FAILURE, 'Something went wrong'));
         }

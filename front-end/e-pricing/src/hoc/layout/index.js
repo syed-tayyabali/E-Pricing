@@ -1,33 +1,52 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, withRouter } from 'react-router-dom';
+
 import Aux from '../Auxilliary/Auxilliary';
 import './layout.css';
+import { getCategories } from '../../store/actions/Category';
 
-const DISPLAY_NONE_CLASS= 'display-none';
-const DISPLAY_CLASS= 'display-show';
+
+const DISPLAY_NONE_CLASS = 'display-none';
+const DISPLAY_CLASS = 'display-show';
 
 class Layout extends Component {
     constructor(props) {
         super(props);
         this.state = {
             dropDownToggle: false,
+            loading: false,
         };
     }
 
+    componentDidUpdate(prevProps) {
+        const { loading } = prevProps;
+        if (loading !== this.props.loading) {
+            this.setState({ loading: this.props.loading });
+        }
+    }
+
+    componentDidMount() {
+        this.props.getCategories();
+    }
+
     toggleDropDownClass = () => {
-        this.setState({dropDownToggle: !this.state.dropDownToggle});
+        this.setState({ dropDownToggle: !this.state.dropDownToggle });
     }
 
     render() {
         let dropDownClass = 'dropdown-menu';
         let displayClass = this.state.dropDownToggle ? DISPLAY_CLASS : DISPLAY_NONE_CLASS;
         dropDownClass = dropDownClass + ' ' + displayClass;
+        if (this.state.loading) {
+            return null;
+        }
         return (
             <Aux>
                 <Navbar bg="dark" variant="dark">
@@ -49,12 +68,14 @@ class Layout extends Component {
                         >
                             category
                         </NavLink>
-                        <li class="nav-item dropdown">
+                        <li className="nav-item dropdown">
                             <a onClick={this.toggleDropDownClass} className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Dropdown
                             </a>
-                            <div class={dropDownClass} aria-labelledby="navbarDropdown">
-                                <NavLink to="/laptop" className="dropdown-item text-dark">Laptops</NavLink>
+                            <div className={dropDownClass} aria-labelledby="navbarDropdown">
+                                {this.props.categories.map((category, index) => (
+                                    <NavLink to="/laptop" className="dropdown-item text-dark">{category.name}</NavLink>
+                                ))}
                             </div>
                         </li>
                     </Nav>
@@ -72,4 +93,19 @@ class Layout extends Component {
     }
 }
 
-export default withRouter(Layout);
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        getCategories,
+    }, dispatch)
+}
+
+const mapStateToProps = state => {
+    const { categories, loading } = state.category;
+    return {
+        categories,
+        loading,
+    }
+}
+
+connect(null, mapDispatchToProps)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));

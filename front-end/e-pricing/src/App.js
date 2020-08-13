@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
-import Layout from './hoc/layout/layout';
+import Layout from './hoc/layout';
 import index from './screens/Home/index'
 import category from './screens/Home/category';
 

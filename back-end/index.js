@@ -1,5 +1,6 @@
 // const Joi = require('joi');
 const mongoose = require('mongoose');
+const cors = require('cors');
 mongoose
     .connect('mongodb://localhost/data')
     .then(() => console.log('connect to database'))
@@ -13,6 +14,7 @@ const productType = require('./routes/productType');
 const webCollection = require('./routes/webCollection');
 
 app.use(express.json());
+app.use(cors());
 app.use('/api/products', products);
 app.use('/api/productType', productType);
 app.use('/api/webcollections', webCollection)
@@ -31,5 +33,5 @@ if(app.get('env') === 'development'){
     console.log('Morgan enable...');
 }
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`listening Port${port}...`));

@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 //SPECIFIC PRODUCT DESCRIPTION
 router.get('/:id', async (req, res) => {
     var _id = new mongoose.Types.ObjectId(req.params.id);
-    const product = await products.findOne({ _id }).select('heading price product_url productSmallImg productLargeImg description');
+    const product = await products.findOne({ _id }).select('heading price product_url productLargeImg description');
     if (!product)
         return res.status(404).send('the product with the given id is not found');
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NavLink } from 'react-router-dom';
 
 import { getProducts } from '../../store/actions/Products';
 
@@ -9,14 +10,19 @@ class Products extends Component {
         super(props);
         this.state = {
             id: props.match.params.id,
+            loading: false
         };
     }
 
     componentDidUpdate(prevProps) {
+        const { loading } = prevProps;
         if (prevProps.match.params.id !== this.props.match.params.id) {
             this.setState({ id: this.props.match.params.id }, () => {
                 this.props.getProducts(this.state.id)
             })
+        }
+        if (loading !== this.props.loading) {
+            this.setState({ loading: this.props.loading });
         }
     }
 
@@ -28,11 +34,17 @@ class Products extends Component {
     render() {
         return (
             <div>
-                {this.props.products.map((product) => (
-                    <div>
-                        <h5>{product.heading}</h5>
-                        <h5>{product.price}</h5>
-                        <img src={`${product.productLargeImg}`}></img>
+                {this.props.products.map((products) => (
+                    <div className='container'>
+                        <div className='row'>
+                            <div className='col-sm-6'>
+                                <NavLink to={`/product/${products._id}`}>
+                                    <h5>{products.heading}</h5>
+                                    <h5>{products.price}</h5>
+                                    {/* <img src={`${product.productLargeImg}`}></img> */}
+                                </NavLink>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>

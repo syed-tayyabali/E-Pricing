@@ -38,6 +38,9 @@ class ProductDetail extends Component {
                 <h5>{this.props.product.product_url}</h5>
                 <img src={`${this.props.product.productLargeImg}`}></img>
                 {this.props.product.description && <div>{parse(this.props.product.description[0])}</div>}
+                {/* {this.props.product.description && <div>{parse(this.props.product.description[1])}</div>} */}
+                {this.props.product.overview && <div>{parse(this.props.product.overview[0])}</div>}
+                {this.props.product.overview && <div>{parse(this.props.product.overview[1])}</div>}
             </div>
         )
     }

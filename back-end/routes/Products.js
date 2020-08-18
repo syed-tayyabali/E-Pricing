@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         return res.send(response)
     }
 
-    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('heading price');
+    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size);
     // console.log(product);
     res.send(productList);
 });
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 //SPECIFIC PRODUCT DESCRIPTION
 router.get('/:id', async (req, res) => {
     var _id = new mongoose.Types.ObjectId(req.params.id);
-    const product = await products.findOne({ _id }).select('heading price product_url productLargeImg description');
+    const product = await products.findOne({ _id })
     if (!product)
         return res.status(404).send('the product with the given id is not found');
 
@@ -39,7 +39,7 @@ router.get('/type/:typeId', async (req, res) => {
         return res.send(response)
     }
 
-    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('type heading price productLargeImg');
+    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size);
     res.send(productList);
 });
 
@@ -52,7 +52,7 @@ router.get('/webCollection/:seller_keyID', async (req, res) => {
         return res.send(response)
     }
 
-    const webCollectionProductList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('seller_keyID seller_key heading price')
+    const webCollectionProductList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size)
     res.send(webCollectionProductList);
 })
 
@@ -65,7 +65,7 @@ router.get('/type/:typeId/:seller_keyID', async (req, res) => {
         return res.send(response)
     }
 
-    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size).select('type seller_keyID seller_key heading price');
+    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size)
     res.send(productList);
 });
 

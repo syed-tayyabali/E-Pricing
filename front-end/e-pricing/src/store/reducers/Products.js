@@ -1,4 +1,7 @@
-import { PRODUCTS_ACTIONS } from '../../constants/actions/index';
+import {
+    PRODUCTS_ACTIONS,
+    GETPRODUCTSBYWEBCOLLECTION_ACTIONS
+} from '../../constants/actions/index';
 
 const initialState = {
     products: [],
@@ -7,12 +10,14 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PRODUCTS_ACTIONS.GET_PRODUCTSBY_WEBCOLLECTION_REQUEST:
         case PRODUCTS_ACTIONS.GET_PRODUCTS_REQUEST:
             console.log('in request', action)
             return {
                 ...state,
                 loading: true,
             };
+        case PRODUCTS_ACTIONS.GET_PRODUCTSBY_WEBCOLLECTION_SUCCESS:
         case PRODUCTS_ACTIONS.GET_PRODUCTS_SUCCESS:
             console.log('in success', action)
             return {
@@ -20,6 +25,8 @@ const productReducer = (state = initialState, action) => {
                 products: action.payload,
                 loading: false,
             };
+
+        case PRODUCTS_ACTIONS.GET_PRODUCTSBY_WEBCOLLECTION_FAILURE:
         case PRODUCTS_ACTIONS.GET_PRODUCTS_FAILURE:
             return {
                 ...state,

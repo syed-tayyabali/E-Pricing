@@ -15,6 +15,7 @@ class App extends Component {
         <Route exact path='/' component={Home} />
         <Route exact path='/category' component={Category} />
         <Route exact path='/products/:id' component={Products} />
+        <Route exact path='/products/:id/:webCollectionId' component={Products} />
         <Route exact path='/product/:id' component={ProductDetail} />
         {/* <Redirect to='/' /> */}
       </Switch>

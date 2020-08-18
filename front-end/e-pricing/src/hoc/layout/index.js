@@ -60,17 +60,17 @@ class Layout extends Component {
                         >
                             Home
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                             exact
                             className="nav-link"
                             activeClassName="nav-link active"
                             to="/category"
                         >
                             category
-                        </NavLink>
+                        </NavLink> */}
                         <li className="nav-item dropdown">
                             <a onClick={this.toggleDropDownClass} className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
+                                Category
                             </a>
                             <div className={dropDownClass} aria-labelledby="navbarDropdown">
                                 {this.props.categories.map((category, index) => (

@@ -1,12 +1,12 @@
-whatmobile = 1 (mobile)
+whatmobile = 1 (mobile) (done)
 whatprice = 2 (mobile)
 priceoye = 8 (mobile)
 
-czone = 3 (laptop)
-myshop = 4 (laptop)
-paklap = 6 (laptop)
+czone = 3 (laptop) (done)
+myshop = 4 (laptop) (done)
+paklap = 6 (laptop) (done)
 
-ishopping = 5 (tablets)
+ishopping = 5 (tablets) (done)
 tablets= 7 (tablets)
 
 25 = laptop

@@ -15,8 +15,8 @@ class MyShop(scrapy.Spider):
 
     def crawl_product(self,response):
         for li in response.xpath("//div[@class='page-wrapper']/main[1]/div[4]/div[1]/div[4]/ol/li"):           
-            product_url = response.xpath("//div[@class='page-wrapper']/main[1]/div[4]/div[1]/div[4]/ol/li/div[1]/div[2]/strong/a/@href").get()
-            productSmallImg = response.xpath("//div[@class='products wrapper grid columns4  products-grid']/ol/li/div/div/a/img[1]/@src").get()
+            product_url = li.xpath(".//div[1]/div[2]/strong/a/@href").get()
+            productSmallImg = li.xpath(".//div/div/a/img[1]/@src").get()
             yield response.follow(li.xpath(".//div[1]/div[2]/strong/a/@href")[0],callback=self.parse_des, meta = {'product_url': product_url, 'productSmallImg': productSmallImg,'current_category': response.meta.get('current_category')})
             
     def parse_des(self,response):
@@ -33,7 +33,7 @@ class MyShop(scrapy.Spider):
             'price': price("//div[@class='page-wrapper']/main[1]/div[2]/div[1]/div[1]/div[3]/div[1]/span/span/span/text()"),
             'product_url': response.meta.get("product_url"),
             'productSmallImg': response.meta.get("productSmallImg"),
-            'productLargeImg': response.xpath("//div[@class='fotorama-item fotorama fotorama1595672202832 fotorama--fullscreen']/div[2]/div[1]/div[3]/div[2]/img[1]/@src").get(),
+            # 'productLargeImg': response.xpath("//div[@class='fotorama-item fotorama fotorama1595672202832 fotorama--fullscreen']/div[2]/div[1]/div[3]/div[2]/img[1]/@src").get(),
             'description': response.xpath("//div[@class='product info detailed vertical']/div[1]/div[2]/div[1]/table").get(),
             'overview': response.xpath("//div[@class='product info detailed vertical']/div[1]/div[4]/div[1]/div[1]").get(),
             'category': response.meta.get('current_category'),

@@ -15,13 +15,13 @@ class Czone(scrapy.Spider):
             
     def crawl_product(self, response):
         for div in response.xpath("//div[@id='divListView']/div"):
-            product_url = response.xpath("//div[@id='divListView']/div/div/div/div/div[2]/div/div[1]/h4/a/@href").get()
-            productSmallImg = response.xpath("//div[@class='template']/div[1]/div[1]/div[1]/div[1]/div[1]/a/img/@src").get()
-            yield response.follow(div.xpath(".//div/div/div/div[2]/div/div[1]/h4/a/@href")[0], callback=self.parse_des, meta = {'product_url':product_url, 'productSmallImg':productSmallImg, 'current_category': response.meta.get('current_category')} )
+            product_url = div.xpath(".//div/div/div/div[2]/div/div[1]/h4/a/@href").get()
+            productSmallImg = div.xpath(".//div/div/div/div/div/a/img/@src").get()
+            yield response.follow(div.xpath(".//div/div/div/div[2]/div/div[1]/h4/a/@href")[0], callback=self.parse_des,meta={'product_url': product_url, 'productSmallImg': productSmallImg,'current_category': response.meta.get('current_category')})
         
         next_page = response.xpath("//a[@class='NextPage']/@href").get()    
         if next_page is not None:
-            yield response.follow(next_page, callback=self.crawl_product, meta={'current_category': response.meta.get('current_category')})
+            yield response.follow(next_page, callback=self.crawl_product, meta={'product_url':response.meta.get('product_url'), 'productSmallImg':response.meta.get('productSmallImg'),'current_category': response.meta.get('current_category')})
             
     def parse_des(self, response):
         web_url = 'https://czone.com.pk'
@@ -43,7 +43,7 @@ class Czone(scrapy.Spider):
                                ],
             'overview': response.xpath("//div[@class='row']/div[@class='product-tab w100 clearfix']/div[1]/div[1]/div[1]/div[1]").get(),
             'category': response.meta.get('current_category'),
-            'seller_key': 'czone',   
+            'seller_key': 'czone',
             'seller_keyID': 3,
-            'type': 25
+            'type': 25   
         }

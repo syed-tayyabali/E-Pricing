@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { getProducts, getProductsWebCollection } from '../../store/actions/Products';
 import { getWebCollection } from '../../store/actions/WebCollection';
 import Aux from '../../hoc/Auxilliary/Auxilliary';
+import './index.css';
 
 class Products extends Component {
     constructor(props) {
@@ -53,31 +54,58 @@ class Products extends Component {
         }
     }
 
+    productImg = (product) => {
+        console.log(product)
+        let productImg = <img src={`${product.productSmallImg}`} className='card-img-top'></img>;
+        if (!product.productSmallImg) {
+            productImg = <img src={`${product.productLargeImg}`} className='card-img-top' height='200' width='150'></img>;
+        }
+        return productImg
+    }
+
+    webCollectionLength = () => {
+        let webLength = this.props.WebCollection.map((WebCollection, index) => (
+            < NavLink to={`/products/${WebCollection.type}/${WebCollection._id}`} className='col-sm-4 btn btn-info'>
+                <h5>{WebCollection.name}</h5>
+            </NavLink>
+        ));
+        if (this.props.WebCollection.length < 3) {
+            webLength = this.props.WebCollection.map((WebCollection, index) => (
+                < NavLink to={`/products/${WebCollection.type}/${WebCollection._id}`} className='col-sm-6 btn btn-info'>
+                    <h5>{WebCollection.name}</h5>
+                </NavLink>
+            ))
+        }
+        return webLength;
+    }
+
     render() {
         return (
             <Aux>
-                <div className='container'>
-                    <div className='row ml-5'>
-                        {this.props.WebCollection.map((WebCollections, index) => (
-                            <NavLink to={`/products/${WebCollections.type}/${WebCollections._id}`} className='col-sm-4'>
-                                <h5>{WebCollections.name}</h5>
-                            </NavLink>
-                        ))}
+                <div className='container-fluid'>
+                    <div className='row '>
+                        {this.webCollectionLength()}
                     </div>
                 </div>
-                <div className='container'>
-                    <div className='row ml-5'>
-                        {this.props.products.map((products) => (
-                            <NavLink to={`/product/${products._id}`} className='col-sm-3'>
-                                <h5>{products.heading}</h5>
-                                <h5>{products.price}</h5>
-                                {/* <img src={`${products.productLargeImg}`}></img> */}
-                                <img src={`${products.productSmallImg}`}></img>
-                            </NavLink>
-                        ))}
+                <div className='container-fluid'>
+                    <div className="row">
+                        <div className="col-lg-2">
+                            <h2>Filters</h2>
+                        </div>
+                        <div className='col-lg-10'>
+                            <div className="row">
+                                {this.props.products.map((product) => (
+                                    <NavLink to={`/product/${product._id}`} className='col-xl-2 col-md-6 col-grid-box m-3 card'>
+                                        {this.productImg(product)}
+                                        <p>{product.heading}</p>
+                                        <h4 className='btn btn-primary'>{product.price}</h4>
+                                    </NavLink>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </Aux>
+            </Aux >
         );
     }
 }

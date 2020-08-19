@@ -27,11 +27,11 @@ class PaklabSpider(scrapy.Spider):
         #     PaklabSpider.page_number += 1
 
     def crawl_product(self, response):
-        product_url = response.xpath("//div[@class='product-item-info']/div[2]/strong/a/@href").get()
-        for pg in response.xpath("//div[@class='product-item-info']/div[2]/strong"):
-            productSmallImg = response.xpath("//div[@class='product-item-info']/div/a/img/@src").get()
-            currentCategory = response.xpath('//div[@class="block-content filter-content"]/div[@class="filter-current"]/ol/li/span[2]/text()')[0].get()
-            yield response.follow(pg.xpath('.//a/@href')[0], callback=self.print_specs, meta={'product_url':product_url,'productSmallImg':productSmallImg,'current_category': currentCategory})
+        for pg in response.xpath("//div[@class='product-item-info']"):
+            product_url = pg.xpath(".//div[2]/strong/a/@href").get()
+            productSmallImg = pg.xpath(".//div/a/img/@src").get()
+            currentCategory = pg.xpath('//div[@class="block-content filter-content"]/div[@class="filter-current"]/ol/li/span[2]/text()')[0].get()
+            yield response.follow(pg.xpath('.//div[2]/strong/a/@href')[0], callback=self.print_specs, meta={'product_url': product_url,'productSmallImg':productSmallImg,'current_category': currentCategory})
 
         next_page = response.xpath("//div[@class='pages']/ul/li[@class='item pages-item-next']/a/@href").get()
         if next_page is not None:
@@ -40,7 +40,6 @@ class PaklabSpider(scrapy.Spider):
 
     def print_specs(self,response):
         # web_url = 'https://www.paklap.pk'
-        
         def price(change):
             price = response.xpath(change).get()
             price = price.replace('Rs.','')

@@ -1,13 +1,13 @@
 whatmobile = 1 (mobile) (done)
-whatprice = 2 (mobile)
-priceoye = 8 (mobile)
+whatprice = 2 (mobile) (done)
+priceoye = 8 (mobile) (description and large img issue)
 
 czone = 3 (laptop) (done)
-myshop = 4 (laptop) (done)
+myshop = 4 (laptop) (done but product large img issue)
 paklap = 6 (laptop) (done)
 
 ishopping = 5 (tablets) (done)
-tablets= 7 (tablets)
+tablets= 7 (tablets) (done but small and large img issue)
 
 25 = laptop
 50 = mobile

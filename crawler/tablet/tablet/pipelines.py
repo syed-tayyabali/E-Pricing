@@ -8,7 +8,7 @@
 import logging
 import pymongo
 
-class PriceoyePipeline(object):
+class TabletPipeline(object):
     collection_name = 'Products_tb'
 
     def __init__(self, mongo_uri, mongo_db):

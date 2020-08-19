@@ -79,14 +79,14 @@ class ProductDetail extends Component {
                     </div>
                 </div>
                 <div className='row bg-light'>
-                    <div className='mt-3 mr-5 ml-5 mb-3 rounded bg-white'>
+                    <div className='col-lg-6 mt-4 mr-5 ml-5 mb-4 rounded bg-white'>
                         <div className='m-3'>
-                            <h4>{this.props.product.heading} Specification<hr/></h4>
+                            <h4>{this.props.product.heading} Specification<hr /></h4>
                             <br />
                             {this.arrayDescription()}
-                            </div>
+                        </div>
                     </div>
-                    <div className='mt-3 mr-5 ml-5 mb-5 rounded bg-white'>
+                    <div className='col-lg-6 mt-4 mr-5 ml-5 mb-5 rounded bg-white'>
                         {this.props.product.overview && <div className='m-3'>{parse(this.props.product.overview)}</div>}
                     </div>
                 </div>

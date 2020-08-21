@@ -1,6 +1,5 @@
 import {
-    PRODUCTS_ACTIONS,
-    GETPRODUCTSBYWEBCOLLECTION_ACTIONS
+    PRODUCTS_ACTIONS
 } from '../../constants/actions/index';
 
 const initialState = {

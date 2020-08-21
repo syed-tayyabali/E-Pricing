@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import parse from 'html-react-parser'
 
 import { getProductDetail } from '../../store/actions/productDetail';
+import './index.css';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -36,16 +37,6 @@ class ProductDetail extends Component {
         return description;
     }
 
-    // arrayOverview = () => {
-    //     if (!this.props.product.overview) {
-    //         return null;
-    //     }
-    //     let overview = this.props.product.overview.map((moreDescribe) => {
-    //         return parse(moreDescribe);
-    //     })
-    //     return overview;
-    // }
-
     productImg = () => {
         let productImg = this.props.product.productLargeImg;
         if (!productImg) {
@@ -56,20 +47,20 @@ class ProductDetail extends Component {
 
 
     render() {
-        console.log(this.props);
         if (this.props.loading) {
             return null;
         }
+
         return (
             <div className='container-fluid '>
-                <div className='row bg-light'>
+                <div className='row GreyBg'>
                     <div className='row mt-3 mr-5 ml-5 mb-3 bg-white rounded'>
                         <div className='col-lg-12'>
                             <h3>{this.props.product.heading}</h3>
                             <hr />
                         </div>
                         <div className='col-lg-4 col-md-6 col-sm-12'>
-                            <img src={`${this.productImg()}`} width='60%' ></img>
+                            <img src={`${this.productImg()}`} width='60%'></img>
 
                         </div>
                         <div className='col-lg-8 mt-5'>
@@ -78,7 +69,7 @@ class ProductDetail extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='row bg-light'>
+                <div className='row GreyBg'>
                     <div className='col-lg-6 mt-4 mr-5 ml-5 mb-4 rounded bg-white'>
                         <div className='m-3'>
                             <h4>{this.props.product.heading} Specification<hr /></h4>
@@ -86,7 +77,7 @@ class ProductDetail extends Component {
                             {this.arrayDescription()}
                         </div>
                     </div>
-                    <div className='col-lg-6 mt-4 mr-5 ml-5 mb-5 rounded bg-white'>
+                    <div className='col-lg-11 mt-4 mr-5 ml-5 mb-5 rounded bg-white'>
                         {this.props.product.overview && <div className='m-3'>{parse(this.props.product.overview)}</div>}
                     </div>
                 </div>

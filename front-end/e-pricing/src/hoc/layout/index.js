@@ -50,7 +50,7 @@ class Layout extends Component {
         return (
             <Aux>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="/home">Navbar</Navbar.Brand>
+                    <Navbar.Brand href="/">Navbar</Navbar.Brand>
                     <Nav className="mr-auto">
                         <NavLink
                             exact

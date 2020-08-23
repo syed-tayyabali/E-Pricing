@@ -10,12 +10,11 @@ function getProducts(id, params, webCollectionId) {
             let res = null;
             if (webCollectionId) {
                 res = await getProductsByWebCollectionAsync(id, webCollectionId, params);
-
             } else {
                 res = await getProductsAsync(id, params);
             }
-            const products = res.data;
-            dispatch(success(PRODUCTS_ACTIONS.GET_PRODUCTS_SUCCESS, products));
+            const { products, categories } = res.data;
+            dispatch(success(PRODUCTS_ACTIONS.GET_PRODUCTS_SUCCESS, { products, categories }));
         } catch (e) {
             console.log(e);
             dispatch(failure(PRODUCTS_ACTIONS.GET_PRODUCTS_FAILURE, 'Something went wrong'));

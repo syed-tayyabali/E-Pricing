@@ -25,6 +25,7 @@ function query(req) {
     let priceMin = req.query.priceMin;
     let type = req.params.typeId;
     let sellerId = req.params.seller_keyID;
+    let category = req.query.category;
     let query = {};
 
     if (priceMax && priceMin) {
@@ -43,9 +44,12 @@ function query(req) {
     if (sellerId) {
         query.seller_keyID = sellerId;
     }
+    if(category){
+        query.category = category
+    }
 
     return query;
 }
 
 module.exports.query = query;
-module.exports.products = products;
+module.exports.productsModel = products;

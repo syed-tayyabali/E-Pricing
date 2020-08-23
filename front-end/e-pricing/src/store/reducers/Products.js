@@ -4,6 +4,7 @@ import {
 
 const initialState = {
     products: [],
+    categories: [],
     loading: false,
 }
 
@@ -21,7 +22,8 @@ const productReducer = (state = initialState, action) => {
             console.log('in success', action)
             return {
                 ...state,
-                products: action.payload,
+                products: action.payload.products,
+                categories: action.payload.categories,
                 loading: false,
             };
 

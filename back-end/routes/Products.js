@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 
-const { products, query } = require('../models/ProductsModel');
+const { productsModel, query } = require('../models/ProductsModel');
 
 //ALL PRODUCT LISTENIG
 router.get('/', async (req, res) => {
@@ -14,21 +14,18 @@ router.get('/', async (req, res) => {
         return res.send(response)
     }
 
-    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size);
-    // console.log(product);
+    const productList = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
     res.send(productList);
 });
 
 //ALL PRODUCT LISTENIG
-router.get('/categories', async (req, res) => {
-    const categories = await products.find({}).distinct('category');
-    res.send(categories);
-});
+// rou
+
 
 //SPECIFIC PRODUCT DESCRIPTION
 router.get('/:id', async (req, res) => {
     var _id = new mongoose.Types.ObjectId(req.params.id);
-    const product = await products.findOne({ _id })
+    const product = await productsModel.findOne({ _id })
     if (!product)
         return res.status(404).send('the product with the given id is not found');
 
@@ -45,8 +42,9 @@ router.get('/type/:typeId', async (req, res) => {
         return res.send(response)
     }
 
-    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size);
-    res.send(productList);
+    const products = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
+    const categories = await productsModel.find(query(req)).distinct('category');
+    res.send({ products, categories });
 });
 
 router.get('/webCollection/:seller_keyID', async (req, res) => {
@@ -58,8 +56,9 @@ router.get('/webCollection/:seller_keyID', async (req, res) => {
         return res.send(response);
     }
 
-    const webCollectionProductList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size);
-    res.send(webCollectionProductList);
+    const products = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
+    const categories = await productsModel.find(query(req)).distinct('category');
+    res.send({ products, categories });
 })
 
 
@@ -73,8 +72,9 @@ router.get('/type/:typeId/:seller_keyID', async (req, res) => {
         return res.send(response);
     }
 
-    const productList = await products.find(query(req)).skip(size * (pageNo - 1)).limit(size);
-    res.send(productList);
+    const products = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
+    const categories = await productsModel.find(query(req)).distinct('category');
+    res.send({products, categories});
 });
 
 

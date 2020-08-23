@@ -18,10 +18,18 @@ class Products extends Component {
         this.state = {
             id: props.match.params.id,
             webCollectionId: props.match.params.webCollectionId ? props.match.params.webCollectionId : null,
+            filters: {
+                brand: '',
+                category: '',
+            },
             loading: false,
-            brand: '',
+            visible: false,
+            minPrice: '',
+            maxPrice: '',
         };
 
+        this.onPriceChange = this.onPriceChange.bind(this);
+        this.onToggleButton = this.onToggleButton.bind(this);
         this.onFilterChange = this.onFilterChange.bind(this);
         this.onFilterSubmit = this.onFilterSubmit.bind(this);
     }
@@ -50,13 +58,13 @@ class Products extends Component {
         if (loading !== this.props.loading) {
             this.setState({ loading: this.props.loading });
         }
-
+        console.log('products category mounted', this.props.categories);
     }
 
     componentDidMount() {
         this.props.getWebCollection(this.state.id);
         this.getProductsAction();
-        this.props.getProductCategory();
+        console.log('products category', this.props.categories);
     }
 
     getProductsAction(filters = null) {
@@ -64,14 +72,44 @@ class Products extends Component {
         this.props.getProducts(id, filters, webCollectionId);
     }
 
+    onFilterChange = (event) => {
+        this.setState({ filters: { ...this.state.filters, brand: event.target.value } });
+    }
+
     onFilterSubmit = (event) => {
-        this.setState({ brand: this.state.brand });
-        this.getProductsAction({ brand: this.state.brand });
+        this.getProductsAction(this.state.filters);
         event.preventDefault();
     }
 
-    onFilterChange = (event) => {
-        this.setState({ brand: event.target.value });
+    onCategoryChange = (event) => {
+        this.setState({ filters: { ...this.state.filters, category: event.target.value } })
+    }
+
+    onClearFilter = () => {
+        this.setState({
+            filters: {
+                ...this.state.filters,
+                category: '',
+            }
+        });
+    }
+
+    onPriceSubmit = (event) => {
+        this.setState({
+            minPrice: this.state.minPrice,
+            maxPrice: this.state.maxPrice
+        });
+        event.preventDefault();
+    }
+
+    onPriceChange = (event) => {
+        this.setState({
+            minPrice: event.target.value,
+        });
+    }
+
+    onToggleButton = () => {
+        this.setState({ visible: !this.state.visible });
     }
 
     productImg = (product) => {
@@ -84,13 +122,13 @@ class Products extends Component {
 
     webCollectionLength = () => {
         let webLength = this.props.WebCollection.map((WebCollection, index) => (
-            < NavLink to={`/products/${WebCollection.type}/${WebCollection._id}`} className='col-sm-4 btn btn-info'>
+            < NavLink to={`/products/${WebCollection.type}/${WebCollection._id}`} className='col-sm-4 btn btn-info font-italic'>
                 <h5>{WebCollection.name}</h5>
             </NavLink>
         ));
         if (this.props.WebCollection.length < 3) {
             webLength = this.props.WebCollection.map((WebCollection, index) => (
-                < NavLink to={`/products/${WebCollection.type}/${WebCollection._id}`} className='col-sm-6 btn btn-info'>
+                < NavLink to={`/products/${WebCollection.type}/${WebCollection._id}`} className='col-sm-6 btn btn-info font-italic'>
                     <h5>{WebCollection.name}</h5>
                 </NavLink>
             ))
@@ -112,25 +150,43 @@ class Products extends Component {
                         <div className="col-lg-2 mt-4 ml-5 filter">
                             <div className='row'>
                                 <div className='col-lg-12 col-md-12 col-sm-12 bg-white rounded'>
-                                    <h4 className='text-muted font-italic'>FILTERS<hr /></h4>
-                                    <Form onSubmit={this.onFilterSubmit}>
-                                        <FormControl type="text"
-                                            placeholder="Search"
-                                            className="mr-sm-2"
-                                            value={this.state.brand}
-                                            onChange={this.onFilterChange} />
-                                        <Button variant="outline-success mt-2 mb-3" type='submit'>Search</Button>
-                                    </Form>
+                                    <Button onClick={this.onToggleButton}
+                                        className='font-italic'
+                                        variant="outline-info mt-2 mb-3"
+                                    >Search By Name</Button>
+                                    {this.state.visible &&
+                                        <div>
+                                            <div>
+                                                <Form onSubmit={this.onFilterSubmit} alignment='down'>
+                                                    <FormControl type="text"
+                                                        placeholder="Search"
+                                                        className="mr-sm-2"
+                                                        value={this.state.brand}
+                                                        onChange={this.onFilterChange} />
+                                                    <Button variant="outline-success mt-2 mb-3 btn-sm" type='submit'>Search</Button>
+                                                </Form>
+                                            </div>
+                                            {/* <div className="">
+                                                <label htmlFor="customRange1">Example range</label>
+                                                <input type="range" min={5000} max={100000} className="custom-range" id="customRange1" />
+                                            </div> */}
+                                        </div>
+                                    }
                                 </div>
                                 <div className='col-lg-12 bg-white rounded mt-4'>
                                     <h4 className='text-muted font-italic'>Product Category<hr /></h4>
-                                    {this.props.products.map((product) => (
-                                        <ul>
-                                            <li>
-                                                {product.category}
-                                            </li>
-                                        </ul>
+                                    {this.props.categories.map((category) => (
+                                        <div>
+                                            <ul>
+                                                <li className=''>
+                                                    <label className='text-muted font-italic'>{category}</label>
+                                                    <input className='ml-2' type='checkbox' value={category} checked={category === this.state.filters.category} onChange={this.onCategoryChange} />
+                                                </li>
+                                            </ul>
+                                        </div>
                                     ))}
+                                    <Button variant="outline-success mt-2 mb-3 btn-sm" onClick={this.onFilterSubmit}>Submit Category</Button>
+                                    <Button variant="outline-danger mt-2 mb-3 ml-2 btn-sm" onClick={this.onClearFilter}>CLEAR</Button>
                                 </div>
                             </div>
 
@@ -162,13 +218,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    const { products, loading } = state.products;
+    const { products, loading, categories } = state.products;
     const { WebCollection, loader } = state.WebCollectionReducer;
-    const { productCategory } = state.productCategoryReducer;
     return {
         products,
         WebCollection,
-        productCategory,
+        categories,
         loader,
         loading,
     }

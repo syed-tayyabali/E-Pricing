@@ -13,8 +13,8 @@ function getProducts(id, params, webCollectionId) {
             } else {
                 res = await getProductsAsync(id, params);
             }
-            const { products, categories } = res.data;
-            dispatch(success(PRODUCTS_ACTIONS.GET_PRODUCTS_SUCCESS, { products, categories }));
+            const { products, categories, maxPrice } = res.data;
+            dispatch(success(PRODUCTS_ACTIONS.GET_PRODUCTS_SUCCESS, { products, categories, maxPrice }));
         } catch (e) {
             console.log(e);
             dispatch(failure(PRODUCTS_ACTIONS.GET_PRODUCTS_FAILURE, 'Something went wrong'));

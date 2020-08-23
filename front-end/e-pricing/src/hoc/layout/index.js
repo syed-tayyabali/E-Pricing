@@ -74,7 +74,7 @@ class Layout extends Component {
                             </a>
                             <div className={dropDownClass} aria-labelledby="navbarDropdown">
                                 {this.props.categories.map((category, index) => (
-                                    <NavLink to={`/products/${category._id}`} className="dropdown-item text-dark">{category.name}</NavLink>
+                                    <NavLink to={`/products/${category._id}`} className="dropdown-item text-dark font-italic">{category.name}</NavLink>
                                 ))}
                             </div>
                         </li>

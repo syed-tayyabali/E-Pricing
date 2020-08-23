@@ -74,7 +74,7 @@ router.get('/type/:typeId/:seller_keyID', async (req, res) => {
 
     const products = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
     const categories = await productsModel.find(query(req)).distinct('category');
-    res.send({products, categories});
+    res.send({ products, categories });
 });
 
 

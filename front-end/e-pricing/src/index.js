@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css'
 
 const app = (
   <Provider store={store}>

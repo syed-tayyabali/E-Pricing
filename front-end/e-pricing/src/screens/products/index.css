@@ -20,3 +20,8 @@ img {
 .filter{
   height: max-content;
 }
+
+.checkBox-overflow{
+  height: 300px;
+  overflow-y: auto;
+}

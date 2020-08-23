@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavLink } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
+import RangeSlider from 'react-bootstrap-range-slider';
 
 import { getProducts } from '../../store/actions/Products';
 import { getWebCollection } from '../../store/actions/WebCollection';
 import { getProductCategory } from '../../store/actions/ProductCategory';
 import Aux from '../../hoc/Auxilliary/Auxilliary';
 import './index.css';
-import { Form } from 'react-bootstrap';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
 
 class Products extends Component {
     constructor(props) {
@@ -21,14 +22,13 @@ class Products extends Component {
             filters: {
                 brand: '',
                 category: '',
+                priceMax: 500000,
+                priceMin: 0,
             },
             loading: false,
             visible: false,
-            minPrice: '',
-            maxPrice: '',
         };
 
-        this.onPriceChange = this.onPriceChange.bind(this);
         this.onToggleButton = this.onToggleButton.bind(this);
         this.onFilterChange = this.onFilterChange.bind(this);
         this.onFilterSubmit = this.onFilterSubmit.bind(this);
@@ -58,13 +58,11 @@ class Products extends Component {
         if (loading !== this.props.loading) {
             this.setState({ loading: this.props.loading });
         }
-        console.log('products category mounted', this.props.categories);
     }
 
     componentDidMount() {
         this.props.getWebCollection(this.state.id);
         this.getProductsAction();
-        console.log('products category', this.props.categories);
     }
 
     getProductsAction(filters = null) {
@@ -86,26 +84,34 @@ class Products extends Component {
     }
 
     onClearFilter = () => {
+        const { id, webCollectionId } = this.state;
+        this.setState({
+            filters: {
+                ...this.state.filters,
+                brand: '',
+            }
+        }, () => this.props.getProducts(id, this.state.filters, webCollectionId));
+    }
+
+    onClearCategory = () => {
+        const { id, webCollectionId } = this.state;
         this.setState({
             filters: {
                 ...this.state.filters,
                 category: '',
             }
-        });
+        }, () => this.props.getProducts(id, this.state.filters, webCollectionId));
     }
 
-    onPriceSubmit = (event) => {
+    onClearPrice = () => {
+        const { id, webCollectionId } = this.state;
         this.setState({
-            minPrice: this.state.minPrice,
-            maxPrice: this.state.maxPrice
-        });
-        event.preventDefault();
-    }
-
-    onPriceChange = (event) => {
-        this.setState({
-            minPrice: event.target.value,
-        });
+            filters: {
+                ...this.state.filters,
+                priceMax: 0,
+                priceMin: 0,
+            }
+        }, () => this.props.getProducts(id, this.state.filters, webCollectionId));
     }
 
     onToggleButton = () => {
@@ -164,29 +170,46 @@ class Products extends Component {
                                                         value={this.state.brand}
                                                         onChange={this.onFilterChange} />
                                                     <Button variant="outline-success mt-2 mb-3 btn-sm" type='submit'>Search</Button>
+                                                    <Button variant="outline-danger mt-2 mb-3 ml-2 btn-sm" onClick={this.onClearFilter}>CLEAR</Button>
                                                 </Form>
                                             </div>
-                                            {/* <div className="">
-                                                <label htmlFor="customRange1">Example range</label>
-                                                <input type="range" min={5000} max={100000} className="custom-range" id="customRange1" />
-                                            </div> */}
+                                            <div>
+                                                <label className='text-muted font-italic'>Minimun Price: </label>
+                                                <RangeSlider min={0} max={500000} step={1000} value={this.state.filters.priceMin} onChange={(event) => {
+                                                    this.setState({
+                                                        filters: {
+                                                            ...this.state.filters,
+                                                            priceMin: event.target.value,
+                                                        }
+                                                    });
+                                                }} />
+                                                <label className='text-muted font-italic'>Maximun Price: </label>
+                                                <RangeSlider min={0} max={500000} step={1000} value={this.state.filters.priceMax} onChange={(event) => {
+                                                    this.setState({
+                                                        filters: {
+                                                            ...this.state.filters,
+                                                            priceMax: event.target.value,
+                                                        }
+                                                    });
+                                                }} />
+                                                <Button variant="outline-success mt-2 mb-3 btn-sm" onClick={this.onFilterSubmit}>Submit Price</Button>
+                                                <Button variant="outline-danger mt-2 mb-3 ml-2 btn-sm" onClick={this.onClearPrice}>CLEAR</Button>
+                                            </div>
                                         </div>
                                     }
                                 </div>
-                                <div className='col-lg-12 bg-white rounded mt-4'>
+                                <div className='col-lg-12 bg-white rounded mt-4 overflow-scroll'>
                                     <h4 className='text-muted font-italic'>Product Category<hr /></h4>
-                                    {this.props.categories.map((category) => (
-                                        <div>
-                                            <ul>
-                                                <li className=''>
-                                                    <label className='text-muted font-italic'>{category}</label>
-                                                    <input className='ml-2' type='checkbox' value={category} checked={category === this.state.filters.category} onChange={this.onCategoryChange} />
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    ))}
+                                    <div className='checkBox-overflow'>
+                                        {this.props.categories.map((category) => (
+                                            <div>
+                                                <label className='text-muted font-italic'>{category}</label>
+                                                <input className='ml-2' type='checkbox' value={category} checked={category === this.state.filters.category} onChange={this.onCategoryChange} />
+                                            </div>
+                                        ))}
+                                    </div>
                                     <Button variant="outline-success mt-2 mb-3 btn-sm" onClick={this.onFilterSubmit}>Submit Category</Button>
-                                    <Button variant="outline-danger mt-2 mb-3 ml-2 btn-sm" onClick={this.onClearFilter}>CLEAR</Button>
+                                    <Button variant="outline-danger mt-2 mb-3 ml-2 btn-sm" onClick={this.onClearCategory}>CLEAR</Button>
                                 </div>
                             </div>
 

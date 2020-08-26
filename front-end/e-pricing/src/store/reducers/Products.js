@@ -6,6 +6,7 @@ const initialState = {
     products: [],
     categories: [],
     maxPrice: 0,
+    countProduct: 0,
     loading: false,
 }
 
@@ -26,6 +27,7 @@ const productReducer = (state = initialState, action) => {
                 products: action.payload.products,
                 categories: action.payload.categories,
                 maxPrice: action.payload.maxPrice,
+                countProduct: action.payload.countProduct,
                 loading: false,
             };
 

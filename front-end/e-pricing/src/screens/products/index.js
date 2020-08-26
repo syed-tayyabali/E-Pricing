@@ -6,6 +6,7 @@ import { Form } from 'react-bootstrap';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import RangeSlider from 'react-bootstrap-range-slider';
+import Pagination from "react-js-pagination";
 
 import { getProducts } from '../../store/actions/Products';
 import { getWebCollection } from '../../store/actions/WebCollection';
@@ -24,6 +25,7 @@ class Products extends Component {
                 category: '',
                 priceMax: 500000,
                 priceMin: 0,
+                pageNo: 1,
             },
             loading: false,
             visible: false,
@@ -116,6 +118,16 @@ class Products extends Component {
 
     onToggleButton = () => {
         this.setState({ visible: !this.state.visible });
+    }
+
+    handlePageChange = (pageNumber) => {
+        const { id, webCollectionId } = this.state;
+        this.setState({
+            filters: {
+                ...this.state.filters,
+                pageNo: pageNumber
+            }
+        }, () => this.props.getProducts(id, this.state.filters, webCollectionId));
     }
 
     productImg = (product) => {
@@ -226,6 +238,18 @@ class Products extends Component {
                             </div>
                         </div>
                     </div>
+
+                    <div className='d-flex justify-content-center GreyBg'>
+                        <Pagination
+                            itemClass='page-item'
+                            linkClass='page-link'
+                            activePage={this.state.filters.pageNo}
+                            pageRangeDisplayed={5}
+                            itemsCountPerPage={20}
+                            totalItemsCount={this.props.countProduct}
+                            onChange={this.handlePageChange}
+                        />
+                    </div>
                 </div>
             </Aux >
         );
@@ -241,12 +265,13 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    const { products, loading, categories } = state.products;
+    const { products, loading, categories, countProduct } = state.products;
     const { WebCollection, loader } = state.WebCollectionReducer;
     return {
         products,
         WebCollection,
         categories,
+        countProduct,
         loader,
         loading,
     }

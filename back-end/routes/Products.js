@@ -14,13 +14,11 @@ router.get('/', async (req, res) => {
         return res.send(response)
     }
 
+    const countProduct = await productsModel.find(query(req)).count();
     const productList = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
-    res.send(productList);
+    const categories = await productsModel.find(query(req)).distinct('category');
+    res.send({ productList, categories, countProduct });
 });
-
-//ALL PRODUCT LISTENIG
-// rou
-
 
 //SPECIFIC PRODUCT DESCRIPTION
 router.get('/:id', async (req, res) => {
@@ -42,9 +40,10 @@ router.get('/type/:typeId', async (req, res) => {
         return res.send(response)
     }
 
+    const countProduct = await productsModel.find(query(req)).count();
     const products = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
     const categories = await productsModel.find(query(req)).distinct('category');
-    res.send({ products, categories });
+    res.send({ products, categories, countProduct });
 });
 
 router.get('/webCollection/:seller_keyID', async (req, res) => {
@@ -56,9 +55,10 @@ router.get('/webCollection/:seller_keyID', async (req, res) => {
         return res.send(response);
     }
 
+    const countProduct = await productsModel.find(query(req)).count();
     const products = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
     const categories = await productsModel.find(query(req)).distinct('category');
-    res.send({ products, categories });
+    res.send({ products, categories, countProduct });
 })
 
 
@@ -72,9 +72,10 @@ router.get('/type/:typeId/:seller_keyID', async (req, res) => {
         return res.send(response);
     }
 
+    const countProduct = await productsModel.find(query(req)).count();
     const products = await productsModel.find(query(req)).skip(size * (pageNo - 1)).limit(size);
     const categories = await productsModel.find(query(req)).distinct('category');
-    res.send({ products, categories });
+    res.send({ products, categories, countProduct });
 });
 
 

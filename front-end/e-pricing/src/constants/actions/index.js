@@ -4,6 +4,7 @@ import PRODUCT_DETAIL_ACTIONS from './productDetail';
 import WEBCOLLECTION_ACTIONS from './WebCollection';
 import GETPRODUCTSBYWEBCOLLECTION_ACTIONS from './GetProductsByWebCollection';
 import PRODUCT_CATEGORY_ACTIONS from './ProductCategory';
+import PRODUCT_COMPARISON_ACTIONS from './ProductComparsion';
 
 export {
     CATEGORY_ACTIONS,
@@ -12,4 +13,5 @@ export {
     WEBCOLLECTION_ACTIONS,
     GETPRODUCTSBYWEBCOLLECTION_ACTIONS,
     PRODUCT_CATEGORY_ACTIONS,
+    PRODUCT_COMPARISON_ACTIONS,
 }

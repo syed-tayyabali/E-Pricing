@@ -78,5 +78,4 @@ router.get('/type/:typeId/:seller_keyID', async (req, res) => {
     res.send({ products, categories, countProduct });
 });
 
-
 module.exports = router;

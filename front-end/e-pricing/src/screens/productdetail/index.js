@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import parse from 'html-react-parser'
+import parse from 'html-react-parser';
+import Button from 'react-bootstrap/Button';
 
 import { getProductDetail } from '../../store/actions/productDetail';
 import './index.css';
@@ -57,20 +58,23 @@ class ProductDetail extends Component {
                 <div className='row GreyBg'>
                     <div className='row mt-3 mr-5 ml-5 mb-3 bg-white rounded'>
                         <div className='col-lg-12'>
-                            <h3>{this.props.product.heading}</h3>
+                            <h3 className='m-3'>{this.props.product.heading}</h3>
                             <hr />
                         </div>
                         <div className='col-lg-4 col-md-6 col-sm-12'>
-                            <img src={`${this.productImg()}`} width='60%'></img>
-
+                            <img className='ml-5' src={`${this.productImg()}`} width='60%'></img>
                         </div>
                         <div className='col-lg-8 mt-5'>
-                            <h3>Rs. {this.props.product.price}</h3>
-                            <h5>{this.props.product.product_url}</h5>
-                            <NavLink className='btn btn-secondary'
-                                to={`/productComaparison?type=${this.props.product.type}&seller_keyId=${this.props.product.seller_keyID}&heading=${this.props.product.heading}&id=${this.props.product._id}`}>
-                                add comparison
-                            </NavLink>
+                            <h3 className='text-black-50 font-italic'>Rs. {this.props.product.price}</h3>
+                            <br />
+                            <br />
+                            <div className='row'>
+                                <NavLink className='col-lg-5 btn btn-secondary '
+                                    to={`/productComaparison?type=${this.props.product.type}&seller_keyId=${this.props.product.seller_keyID}&heading=${this.props.product.heading}&id=${this.props.product._id}`}>
+                                    Compair Product
+                                </NavLink>
+                                <Button href={this.props.product.product_url} className="col-lg-5 ml-1 btn btn-secondary" type="button" >Product Link</Button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +102,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-    const { product, loading } = state.productDetailReducer
+    const { product, loading } = state.productDetailReducer;
     return {
         product,
         loading

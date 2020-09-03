@@ -2,7 +2,7 @@ import { PRODUCT_COMPARISON_ACTIONS } from '../../constants/actions/index';
 
 const initialState = {
     compairedProducts: [],
-    loading: false,
+    loader: false,
 }
 
 const productComparsionReducer = (state = initialState, action) => {
@@ -11,19 +11,19 @@ const productComparsionReducer = (state = initialState, action) => {
             console.log('in request', action)
             return {
                 ...state,
-                loading: true,
+                loader: true,
             };
         case PRODUCT_COMPARISON_ACTIONS.GET_PRODUCT_COMAPARSION_SUCCESS:
             console.log('in success', action)
             return {
                 ...state,
                 compairedProducts: action.payload,
-                loading: false,
+                loader: false,
             };
         case PRODUCT_COMPARISON_ACTIONS.GET_PRODUCT_COMAPARSION_FAILURE:
             return {
                 ...state,
-                loading: false,
+                loader: false,
             };
         default:
             return state;

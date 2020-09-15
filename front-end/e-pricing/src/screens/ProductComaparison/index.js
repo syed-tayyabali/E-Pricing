@@ -104,10 +104,6 @@ class ProductComparison extends Component {
                                         <Button href={product.product_url} className="col-lg-5 ml-1 mb-3 btn btn-secondary" type="button" >Product Link</Button>
                                     </div>
                                 </div>
-
-                                //     { < div >
-                                // { product.overview && <div className='m-3'>{parse(product.overview)}</> }
-                                //     </div> }
                             )
                         })
                     }

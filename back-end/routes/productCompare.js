@@ -9,7 +9,7 @@ router.get('/:typeId/:seller_keyID', async (req, res) => {
     let sellerId = req.params.seller_keyID;
     let type = req.params.typeId;
     var _id = new mongoose.Types.ObjectId(req.params.id);
-    //productsModel.createIndexes({ heading: 'text' });
+    // productsModel.createIndexes({ heading: 'text' });
 
     const productCompare = await productsModel
         .find({

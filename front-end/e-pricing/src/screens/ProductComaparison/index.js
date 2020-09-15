@@ -11,43 +11,36 @@ import './index.css'
 class ProductComparison extends Component {
     constructor(props) {
         super(props);
+        const { type, seller_keyId, heading, id } = this.getDataForComparison();
         this.state = {
             filter: {
-                heading: '',
-                id: '',
+                heading,
+                id,
+                seller_keyId,
+                type
             }
         }
     }
 
-    getCompariedProductActions() {
+    getDataForComparison() {
         let query = new URLSearchParams(this.props.location.search);
         let type = query.get('type');
         let seller_keyId = query.get('seller_keyId');
         let heading = query.get('heading');
         let id = query.get('id');
-        console.log('this is  id', id);
-        this.setState({
-            filter: {
-                ...this.state.filter,
-                heading: heading,
-                id: id
-            }
-        }, () => this.props.getProductComparsion(type, seller_keyId, this.state.filter)
-        )
+        return {
+            type,
+            seller_keyId,
+            heading,
+            id
+        }
     }
-
-    // componentDidUpdate() {
-    //     if (this.state.filter.id)
-    //         this.props.getProductDetail(this.state.filter.id);
-    // }
 
     componentDidMount() {
-        this.getCompariedProductActions();
-        if (this.state.filter.id)
-            console.log('in did mount state', this.state.filter.id)
-        // this.props.getProductDetail(this.state.filter.id);
-        // console.log(this.props)
+        const { type, seller_keyId, filter } = this.state;
+        this.props.getProductComparsion(type, seller_keyId, filter)
     }
+
     arrayDescription = () => {
 
         if (!this.props.compairedProducts) {

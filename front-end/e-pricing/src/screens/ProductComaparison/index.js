@@ -120,13 +120,12 @@ class ProductComparison extends Component {
                 <div className='row ml-4'>
                     {this.props.compairedProducts.map(product => {
                         const description = product.description[0];
-                        return description && <div className='col-lg-4 mt-4 ml-5 mr-5 mb-4 rounded bg-white fit'>
-                            <div className='m-3'>
-                                <br />
-                                <h4>{product.heading}</h4>
-                                <hr />
-                                {parse(description)}
-                            </div>
+                        return description && <div className='col-lg-6 mt-4 mb-4 rounded bg-white fit'>
+                            <br />
+                            <h4>{product.heading}</h4>
+                            <hr />
+                            <br />
+                            {parse(description)}
                         </div>;
                     })}
                 </div>

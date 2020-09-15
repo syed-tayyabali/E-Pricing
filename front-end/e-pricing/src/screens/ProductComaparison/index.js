@@ -13,11 +13,11 @@ class ProductComparison extends Component {
         super(props);
         const { type, seller_keyId, heading, id } = this.getDataForComparison();
         this.state = {
+            seller_keyId,
+            type,
             filter: {
                 heading,
-                id,
-                seller_keyId,
-                type
+                id
             }
         }
     }
@@ -28,6 +28,7 @@ class ProductComparison extends Component {
         let seller_keyId = query.get('seller_keyId');
         let heading = query.get('heading');
         let id = query.get('id');
+        console.log()
         return {
             type,
             seller_keyId,
@@ -38,7 +39,8 @@ class ProductComparison extends Component {
 
     componentDidMount() {
         const { type, seller_keyId, filter } = this.state;
-        this.props.getProductComparsion(type, seller_keyId, filter)
+        this.props.getProductComparsion(type, seller_keyId, filter);
+        this.props.getProductDetail(this.state.filter.id);
     }
 
     arrayDescription = () => {

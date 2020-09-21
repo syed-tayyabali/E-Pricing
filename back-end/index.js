@@ -4,7 +4,7 @@ const cors = require('cors');
 mongoose
     .connect('mongodb://localhost/data')
     .then(() => console.log('connect to database'))
-    .catch((err)=> console.error('not connected to database', err))
+    .catch((err) => console.error('not connected to database', err))
 
 const morgan = require('morgan');
 const express = require('express');
@@ -13,6 +13,8 @@ const products = require('./routes/Products');
 const productType = require('./routes/productType');
 const webCollection = require('./routes/webCollection');
 const productCompare = require('./routes/productCompare');
+const user = require('./routes/user');
+const auth = require('./routes/auth');
 
 app.use(express.json());
 app.use(cors());
@@ -20,6 +22,8 @@ app.use('/api/products', products);
 app.use('/api/productCompare', productCompare);
 app.use('/api/productType', productType);
 app.use('/api/webcollections', webCollection);
+app.use('/api/users', user);
+app.use('/api/auth', auth);
 
 // app.use(function(req,res,next){
 //     console.log('loading');
@@ -30,7 +34,7 @@ app.use('/api/webcollections', webCollection);
 //     next();
 // });
 
-if(app.get('env') === 'development'){
+if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
     console.log('Morgan enable...');
 }

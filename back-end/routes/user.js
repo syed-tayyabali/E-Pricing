@@ -1,0 +1,25 @@
+const _ = require('lodash');
+const bcrypt = require('bcrypt');
+const express = require('express');
+const router = express.Router();
+
+const { userModel, validate } = require('../models/UserModel');
+
+router.post('/', async (req, res) => {
+    try {
+        validate(req.body);
+        let user = await userModel.findOne({ email: req.body.email });
+        if (user) return res.status(400).send('User Already Registered!!');
+
+        user = new userModel(_.pick(req.body, ['firstName', 'lastName', 'email', 'password']));
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(user.password, salt);
+        await user.save();
+
+        res.send(_.pick(user, ['_id', 'firstName', 'lastName', 'email']));
+    } catch (e) {
+        res.status(400).send(e);
+    }
+})
+
+module.exports = router;

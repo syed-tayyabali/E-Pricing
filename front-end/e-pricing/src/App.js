@@ -7,6 +7,8 @@ import Category from './screens/Home/category';
 import Products from './screens/products';
 import ProductDetail from './screens/productdetail';
 import ProductComparison from './screens/ProductComaparison';
+import Register from './screens/Register';
+import Login from './screens/Login';
 
 class App extends Component {
   render() {
@@ -19,6 +21,8 @@ class App extends Component {
         <Route exact path='/products/:id/:webCollectionId' component={Products} />
         <Route exact path='/product/:id' component={ProductDetail} />
         <Route exact path='/productComaparison' component={ProductComparison} />
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/login' component={Login} />
         {/* <Redirect to='/' /> */}
       </Switch>
     )

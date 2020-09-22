@@ -87,7 +87,7 @@ class Layout extends Component {
                             exact
                             className="nav-link"
                             activeClassName="nav-link active"
-                            to="/"
+                            to="/login"
                         >
                             LOGIN
                         </NavLink>

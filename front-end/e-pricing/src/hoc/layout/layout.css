@@ -1,15 +1,19 @@
-.display-none{
+.display-none {
     display: none !important;
 }
 
-.display-show{
+.display-show {
     display: block !important;
 }
 
-.imgTag{
+.imgTag {
     height: 30px;
 }
 
-.style{
+.logo {
+    height: 40px;
+}
+
+.style {
     border: green;
 }

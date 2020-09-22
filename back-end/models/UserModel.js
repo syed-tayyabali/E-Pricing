@@ -45,6 +45,15 @@ usersSchema.methods.generateAuthToken = function () {
     return token;
 }
 
+usersSchema.methods.getUser = function () {
+    return {
+        _id: this._id,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email
+    }
+}
+
 const users = mongoose.model('users', usersSchema, 'Users_tb');
 
 function validateUser(user) {

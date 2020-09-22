@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
 import { NavLink, withRouter } from 'react-router-dom';
 
 import Aux from '../Auxilliary/Auxilliary';
@@ -15,6 +12,7 @@ import facebook from '../../assets/facebook.png';
 import twiter from '../../assets/twiter.png';
 import instagram from '../../assets/insta.jpg';
 import youtube from '../../assets/youtube.png';
+import logo from '../../assets/logo.png';
 
 const DISPLAY_NONE_CLASS = 'display-none';
 const DISPLAY_CLASS = 'display-show';
@@ -53,7 +51,9 @@ class Layout extends Component {
         return (
             <Aux>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="/">Navbar</Navbar.Brand>
+                    <Navbar.Brand href="/">
+                        <img className='logo' src={logo}></img>
+                    </Navbar.Brand>
                     <Nav className="mr-auto">
                         <NavLink
                             exact
@@ -82,11 +82,16 @@ class Layout extends Component {
                             </div>
                         </li>
                     </Nav>
-
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-info">Search</Button>
-                    </Form>
+                    <Nav>
+                        <NavLink
+                            exact
+                            className="nav-link"
+                            activeClassName="nav-link active"
+                            to="/"
+                        >
+                            LOGIN
+                        </NavLink>
+                    </Nav>
                 </Navbar>
                 <main>
                     {this.props.children}

@@ -9,6 +9,37 @@ import FormControl from 'react-bootstrap/FormControl';
 import './index.css'
 
 class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: ''
+            }
+        }
+    }
+
+    setUserFirstName = (event) => {
+        this.setState({ user: { ...this.state.user, firstName: event.target.value } });
+    }
+    setUserLastName = (event) => {
+        this.setState({ user: { ...this.state.user, lastName: event.target.value } });
+    }
+    setUserEmail = (event) => {
+        this.setState({ user: { ...this.state.user, email: event.target.value } });
+    }
+    setUserPassword = (event) => {
+        this.setState({ user: { ...this.state.user, password: event.target.value } });
+    }
+
+    onSubmit = (event) => {
+        event.preventDefault();
+        console.log(this.state.user);
+        this.props.fetchUser(this.state.user);
+    }
+
     render() {
         return (
             <div className='container-fluid GreyBg'>
@@ -16,14 +47,16 @@ class Register extends Component {
                     <div className='row'>
                         <div className='col-lg-4'></div>
                         <div className='col-lg-4 mt-4 mb-4 card border'>
-                            <Form className='font-weight-bold'>
+                            <Form className='font-weight-bold' onSubmit={this.onSubmit}>
                                 <h3 className='font-weight-bolder text-center'>Sign Up</h3>
 
                                 <div className="form-group">
                                     <label>First Name:</label>
                                     <FormControl type="text"
                                         placeholder="First Name"
-                                        className="mr-sm-2" />
+                                        className="mr-sm-2"
+                                        value={this.state.user.firstName}
+                                        onChange />
                                 </div>
 
                                 <div className="form-group">

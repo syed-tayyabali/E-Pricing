@@ -179,7 +179,7 @@ class Products extends Component {
                                                     <FormControl type="text"
                                                         placeholder="Search"
                                                         className="mr-sm-2"
-                                                        value={this.state.brand}
+                                                        value={this.state.filters.brand}
                                                         onChange={this.onFilterChange} />
                                                     <Button variant="outline-success mt-2 mb-3 btn-sm" type='submit'>Search</Button>
                                                     <Button variant="outline-danger mt-2 mb-3 ml-2 btn-sm" onClick={this.onClearFilter}>CLEAR</Button>

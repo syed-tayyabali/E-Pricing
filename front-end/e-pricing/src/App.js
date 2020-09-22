@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Layout from './hoc/layout';
 import Home from './screens/Home'
@@ -12,7 +13,6 @@ import Login from './screens/Login';
 
 class App extends Component {
   render() {
-
     let routes = (
       <Switch>
         <Route exact path='/' component={Home} />
@@ -36,4 +36,12 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  const { loggedIn, user } = state.loginReducer;
+  return {
+    loggedIn,
+    user
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(App));

@@ -8,7 +8,6 @@ mongoose
     .catch((err) => console.error('not connected to database', err))
 
 const morgan = require('morgan');
-const config = require('config');
 const express = require('express');
 const app = express();
 const products = require('./routes/Products');

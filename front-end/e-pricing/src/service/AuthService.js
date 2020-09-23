@@ -11,7 +11,11 @@ async function loginAsync(user) {
 
 async function registerAsync(user) {
     const url = constructUrl(URLS.REGISTER);
-    return axios.post(url, user);
+    const firstName = user.firstName;
+    const lastName = user.lastName;
+    const email = user.email;
+    const password = user.password;
+    return axios.post(url, { firstName, lastName, email, password });
 }
 
 export { loginAsync, registerAsync }

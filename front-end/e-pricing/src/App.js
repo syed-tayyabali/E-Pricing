@@ -13,6 +13,7 @@ import Register from './screens/Register';
 import Login from './screens/Login';
 import TestScreen from './screens/testScreen/testScreen';
 import { checkLogin } from './store/actions/Login';
+import ProtectedRoute from './hoc/ProtectedRoute/ProtectedRoute';
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class App extends Component {
     console.log(this.props.loggedIn);
     let routes = (
       <Switch>
-        <Route exact path='/testScreen' component={TestScreen} />
+        <ProtectedRoute exact path='/testScreen' component={TestScreen} />
         <Route exact path='/' component={Home} />
         <Route exact path='/category' component={Category} />
         <Route exact path='/products/:id' component={Products} />

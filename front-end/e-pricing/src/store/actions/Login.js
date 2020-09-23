@@ -15,7 +15,7 @@ function fetchUser(user) {
         }
         catch (e) {
             console.log(e);
-            dispatch(failure(LOGIN_ACTIONS.LOGIN_FAILURE, 'Something went wrong'))
+            dispatch(failure(LOGIN_ACTIONS.LOGIN_FAILURE, e.response.data))
         }
     }
 }
@@ -31,7 +31,7 @@ function signUpUser(user) {
         }
         catch (e) {
             console.log(e);
-            dispatch(failure(LOGIN_ACTIONS.REGISTRATION_FAILURE, 'Something went wrong'))
+            dispatch(failure(LOGIN_ACTIONS.REGISTRATION_FAILURE, e.response.data))
         }
     }
 }
@@ -46,4 +46,10 @@ function checkLogin() {
     }
 }
 
-export { signUpUser, fetchUser, checkLogin }
+function logOut() {
+    return async dispatch => {
+        dispatch(success(LOGIN_ACTIONS.LOGOUT_SUCCESS, localStorage.removeItem('token')))
+    }
+}
+
+export { signUpUser, fetchUser, checkLogin, logOut }

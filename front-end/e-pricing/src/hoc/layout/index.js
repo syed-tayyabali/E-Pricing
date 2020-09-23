@@ -13,6 +13,7 @@ import twiter from '../../assets/twiter.png';
 import instagram from '../../assets/insta.jpg';
 import youtube from '../../assets/youtube.png';
 import logo from '../../assets/logo.png';
+import { checkLogin, logOut } from '../../store/actions/Login';
 
 const DISPLAY_NONE_CLASS = 'display-none';
 const DISPLAY_CLASS = 'display-show';
@@ -83,14 +84,29 @@ class Layout extends Component {
                         </li>
                     </Nav>
                     <Nav>
-                        <NavLink
+                        {/* <NavLink
                             exact
                             className="nav-link"
                             activeClassName="nav-link active"
-                            to="/login"
+                            to={`/login?redirectTo=${window.location.pathname}`}
                         >
                             LOGIN
-                        </NavLink>
+                        </NavLink> */}
+                        {this.props.loggedIn ?
+                            <NavLink
+                                exact
+                                className="nav-link"
+                                activeClassName="nav-link active"
+                                onClick={this.props.logOut}
+                                to
+                            >LOGOUT</NavLink> :
+                            <NavLink
+                                exact
+                                className="nav-link"
+                                activeClassName="nav-link active"
+                                to={`/login?redirectTo=${window.location.pathname}`}
+                            >LOGIN</NavLink>
+                        }
                     </Nav>
                 </Navbar>
                 <main>
@@ -157,14 +173,19 @@ class Layout extends Component {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         getCategories,
+        checkLogin,
+        logOut
     }, dispatch)
 }
 
 const mapStateToProps = state => {
     const { categories, loading } = state.category;
+    const { loggedIn, user } = state.loginReducer
     return {
         categories,
         loading,
+        loggedIn,
+        user
     }
 }
 

@@ -2,7 +2,9 @@ const { LOGIN_ACTIONS } = require("../../constants/actions");
 
 const initialState = {
     loggedIn: false,
-    user: {}
+    user: {},
+    loginError: '',
+    registerError: ''
 }
 
 const loginReducer = (state = initialState, action) => {
@@ -11,53 +13,54 @@ const loginReducer = (state = initialState, action) => {
             console.log('in request', action);
             return {
                 ...state,
-                loggedIn: false
+                loggedIn: false,
+                loginError: ''
             };
         case LOGIN_ACTIONS.LOGIN_SUCCESS:
             console.log('in success', action);
             return {
                 ...state,
                 loggedIn: true,
-                user: { ...action.payload }
+                user: { ...action.payload },
+                loginError: ''
             };
         case LOGIN_ACTIONS.LOGIN_FAILURE:
-            console.log('in success', action);
+            console.log('in failure', action);
             return {
                 ...state,
-                loggedIn: false
+                loggedIn: false,
+                loginError: action.payload
             };
 
         case LOGIN_ACTIONS.REGISTRATION_REQUEST:
             console.log('in request', action);
             return {
                 ...state,
-                loggedIn: false
+                loggedIn: false,
+                registerError: ''
             };
         case LOGIN_ACTIONS.REGISTRATION_SUCCESS:
             console.log('in success', action);
             return {
                 ...state,
                 loggedIn: true,
-                user: { ...action.payload }
+                user: { ...action.payload },
+                registerError: ''
             };
         case LOGIN_ACTIONS.REGISTRATION_FAILURE:
-            console.log('in success', action);
+            console.log('in failure', action);
             return {
                 ...state,
-                loggedIn: false
+                loggedIn: false,
+                registerError: action.payload
             };
 
-        case LOGIN_ACTIONS.LOGOUT_REQUEST:
-            console.log('in request', action);
-            return {
-                ...state,
-                loggedIn: true
-            };
         case LOGIN_ACTIONS.LOGOUT_SUCCESS:
-            localStorage.clear();
             return {
                 loggedIn: false,
-                user: {}
+                user: {},
+                loginError: '',
+                registerError: '',
             }
 
         case LOGIN_ACTIONS.CHECK_LOGIN_SUCCESS:

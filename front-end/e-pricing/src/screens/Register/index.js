@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 
-import './index.css'
+import { signUpUser } from '../../store/actions/Login';
+import './index.css';
 
 class Register extends Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class Register extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         console.log(this.state.user);
-        this.props.fetchUser(this.state.user);
+        this.props.signUpUser(this.state.user);
     }
 
     render() {
@@ -49,35 +50,41 @@ class Register extends Component {
                         <div className='col-lg-4 mt-4 mb-4 card border'>
                             <Form className='font-weight-bold' onSubmit={this.onSubmit}>
                                 <h3 className='font-weight-bolder text-center'>Sign Up</h3>
-
+                                <p className='text-danger'>{this.props.registerError}</p>
                                 <div className="form-group">
                                     <label>First Name:</label>
                                     <FormControl type="text"
                                         placeholder="First Name"
                                         className="mr-sm-2"
                                         value={this.state.user.firstName}
-                                        onChange />
+                                        onChange={this.setUserFirstName} />
                                 </div>
 
                                 <div className="form-group">
                                     <label>Last Name:</label>
                                     <FormControl type="text"
                                         placeholder="Last Name"
-                                        className="mr-sm-2" />
+                                        className="mr-sm-2"
+                                        value={this.state.user.lastName}
+                                        onChange={this.setUserLastName} />
                                 </div>
 
                                 <div className="form-group">
                                     <label>Email address:</label>
                                     <FormControl type="text"
                                         placeholder="Enter Email"
-                                        className="mr-sm-2" />
+                                        className="mr-sm-2"
+                                        value={this.state.user.email}
+                                        onChange={this.setUserEmail} />
                                 </div>
 
                                 <div className="form-group">
                                     <label>Password:</label>
                                     <FormControl type="text"
                                         placeholder="password"
-                                        className="mr-sm-2" />
+                                        className="mr-sm-2"
+                                        value={this.state.user.password}
+                                        onChange={this.setUserPassword} />
                                 </div>
 
                                 <Button variant="btn btn-primary btn-block mt-2 mb-3 btn-md" type='submit'>Login</Button>
@@ -93,4 +100,19 @@ class Register extends Component {
     }
 }
 
-export default Register; 
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        signUpUser
+    }, dispatch)
+}
+
+const mapStateToProps = state => {
+    const { loggedIn, user, registerError } = state.loginReducer;
+    return {
+        loggedIn,
+        user,
+        registerError
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register); 

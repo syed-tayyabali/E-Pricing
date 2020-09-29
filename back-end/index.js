@@ -16,6 +16,7 @@ const webCollection = require('./routes/webCollection');
 const productCompare = require('./routes/productCompare');
 const user = require('./routes/user');
 const auth = require('./routes/auth');
+const wishList = require('./routes/wishList');
 
 app.use(express.json());
 app.use(cors());
@@ -25,6 +26,7 @@ app.use('/api/productType', productType);
 app.use('/api/webcollections', webCollection);
 app.use('/api/users', user);
 app.use('/api/auth', auth);
+app.use('/api/wishList', wishList);
 
 // app.use(function(req,res,next){
 //     console.log('loading');

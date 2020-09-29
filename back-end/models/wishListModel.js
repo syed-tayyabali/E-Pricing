@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const wishListSchema = new mongoose.Schema({
     userId: {
-        type: Number,
+        type: String,
         unique: true
     },
     products: [{
-        productId: { type: Number },
+        productId: { type: String },
         quantity: { type: Number }
     }]
 });

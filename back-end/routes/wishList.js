@@ -31,11 +31,18 @@ router.post('/:userId', async (req, res) => {
     try {
         let user = await userModel.findOne({ _id: req.params.userId });
         if (!user) return res.status(404).send('User Not Found!!');
-        const data = _.pick(req.body, ['userId', 'productId', 'quantity']);
-        user = new wishList({ userId: data.userId, products: [{ productId: data.productId, quantity: data.quantity }] });
-        console.log('asdsd', user);
-        await user.save();
-        res.send(user);
+
+        let wishlistItem = await wishList.findOne({ userId: req.params.userId });
+        if (!wishlistItem) {
+            const data = _.pick(req.body, ['userId', 'productId', 'quantity']);
+            wishlistItem = new wishList({ userId: data.userId, products: [{ productId: data.productId, quantity: data.quantity }] });
+            await wishlistItem.save();
+        } else {
+            const data = _.pick(req.body, ['productId', 'quantity']);
+            wishlistItem.products.push({ productId: data.productId, quantity: data.quantity });
+            await wishlistItem.save();
+        }
+        res.send(wishlistItem);
     } catch (e) {
         console.log(e)
         res.status(400).send(e);
@@ -44,15 +51,16 @@ router.post('/:userId', async (req, res) => {
 
 router.put('/updateWishList/:updateId', async (req, res) => {
     try {
-        let userWishList = await wishList.findOne({ userId: req.params.updateId });
-        if (!userWishList) return res.status(404).send('User Not Found');
+        let wishlistItem = await wishList.findOne({ userId: req.params.updateId });
+        if (!wishlistItem) return res.status(404).send('User Not Found');
 
-        userWishList.products.map(product => {
-            return product.quantity = req.body.quantity
+        wishlistItem.products.map(product => {
+            if (product.productId === req.body.productId) {
+                return product.quantity = req.body.quantity;
+            }
         });
-
-        await userWishList.save();
-        res.send(userWishList)
+        await wishlistItem.save();
+        res.send(wishlistItem)
     } catch (e) {
         console.log(e)
         res.status(400).send(e);
@@ -61,15 +69,13 @@ router.put('/updateWishList/:updateId', async (req, res) => {
 
 router.delete('/deleteWishList/:deleteId', async (req, res) => {
     try {
-        const userWishList = await wishList.findByIdAndRemove(req.params.deleteId, {
-            $unset: {
-                products: {
-                    productId: '',
-                    quantity: ''
-                }
-            }
-        })
-        res.send(userWishList)
+        let wishlistItem = await wishList.findOne({ userId: req.params.deleteId });
+        if (!wishlistItem) return res.status(404).send('User Not Found');
+
+        const removedProducts = wishlistItem.products.filter(remove => remove.productId != req.body.productId);
+        wishlistItem.products = removedProducts;
+        await wishlistItem.save();
+        res.send(wishlistItem)
     } catch (e) {
         console.log(e)
         res.status(400).send(e);

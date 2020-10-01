@@ -6,6 +6,7 @@ import GETPRODUCTSBYWEBCOLLECTION_ACTIONS from './GetProductsByWebCollection';
 import PRODUCT_CATEGORY_ACTIONS from './ProductCategory';
 import PRODUCT_COMPARISON_ACTIONS from './ProductComparsion';
 import LOGIN_ACTIONS from './Auth';
+import WISHLIST_ACTIONS from './WishList';
 
 export {
     CATEGORY_ACTIONS,
@@ -15,5 +16,6 @@ export {
     GETPRODUCTSBYWEBCOLLECTION_ACTIONS,
     PRODUCT_CATEGORY_ACTIONS,
     PRODUCT_COMPARISON_ACTIONS,
-    LOGIN_ACTIONS
+    LOGIN_ACTIONS,
+    WISHLIST_ACTIONS
 }

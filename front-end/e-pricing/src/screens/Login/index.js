@@ -47,6 +47,7 @@ class Login extends Component {
     }
 
     render() {
+        console.log('user details', this.props.user);
         return (
             <>
                 {this.props.loggedIn && <Redirect to={this.getRedirectionPath()} />}

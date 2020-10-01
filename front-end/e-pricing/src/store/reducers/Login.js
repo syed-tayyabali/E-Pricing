@@ -1,4 +1,4 @@
-const { LOGIN_ACTIONS } = require("../../constants/actions");
+import { LOGIN_ACTIONS } from '../../constants/actions';
 
 const initialState = {
     loggedIn: false,

@@ -9,9 +9,9 @@ function fetchUser(user) {
         dispatch(request(LOGIN_ACTIONS.LOGIN_REQUEST));
         try {
             let res = await loginAsync(user);
-            const { firstName, lastName, email, token } = res.data;
+            const { _id, firstName, lastName, email, token } = res.data;
             localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
-            dispatch(success(LOGIN_ACTIONS.LOGIN_SUCCESS, { firstName, lastName, email, token }));
+            dispatch(success(LOGIN_ACTIONS.LOGIN_SUCCESS, { _id, firstName, lastName, email, token }));
         }
         catch (e) {
             console.log(e);
@@ -25,9 +25,9 @@ function signUpUser(user) {
         dispatch(request(LOGIN_ACTIONS.REGISTRATION_REQUEST));
         try {
             let res = await registerAsync(user);
-            const { firstName, lastName, email, token } = res.data;
+            const { _id, firstName, lastName, email, token } = res.data;
             localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
-            dispatch(success(LOGIN_ACTIONS.REGISTRATION_SUCCESS, { firstName, lastName, email, token }));
+            dispatch(success(LOGIN_ACTIONS.REGISTRATION_SUCCESS, { _id, firstName, lastName, email, token }));
         }
         catch (e) {
             console.log(e);
@@ -52,4 +52,4 @@ function logOut() {
     }
 }
 
-export { signUpUser, fetchUser, checkLogin, logOut }
+export { signUpUser, fetchUser, checkLogin, logOut };

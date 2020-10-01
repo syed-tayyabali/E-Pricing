@@ -6,6 +6,7 @@ import WebCollectionReducer from './WebCollection';
 import productCategoryReducer from './ProductCategory';
 import productComparsionReducer from './ProductComparison';
 import loginReducer from './Login';
+import wishlistReducer from './WishList';
 
 const reducers = combineReducers({
     category,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     WebCollectionReducer,
     productCategoryReducer,
     productComparsionReducer,
-    loginReducer
+    loginReducer,
+    wishlistReducer
 })
 
 export default reducers;

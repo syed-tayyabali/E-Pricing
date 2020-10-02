@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 
-import { getUserWishlist, postUserWishlist, userUpdateWishlist, deleteUserWishList } from '../../store/actions/WishList';
+import { getUserWishlist, userUpdateWishlist, deleteUserWishList } from '../../store/actions/WishList';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
@@ -47,7 +47,6 @@ class WishList extends Component {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         getUserWishlist,
-        postUserWishlist,
         userUpdateWishlist,
         deleteUserWishList
     }, dispatch);

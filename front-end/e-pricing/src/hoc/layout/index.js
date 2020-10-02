@@ -12,7 +12,7 @@ import facebook from '../../assets/facebook.png';
 import twiter from '../../assets/twiter.png';
 import instagram from '../../assets/insta.jpg';
 import youtube from '../../assets/youtube.png';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo.jpeg';
 import { checkLogin, logOut } from '../../store/actions/Login';
 
 const DISPLAY_NONE_CLASS = 'display-none';
@@ -84,14 +84,15 @@ class Layout extends Component {
                         </li>
                     </Nav>
                     <Nav>
-                        {/* <NavLink
+                        {this.props.loggedIn ? <NavLink
                             exact
                             className="nav-link"
-                            activeClassName="nav-link active"
-                            to={`/login?redirectTo=${window.location.pathname}`}
+                            activeClassName="nav-link active mr-1"
+                            to='/wishList'
                         >
-                            LOGIN
-                        </NavLink> */}
+                            Wishlist
+                        </NavLink> : null
+                        }
                         {this.props.loggedIn ?
                             <NavLink
                                 exact

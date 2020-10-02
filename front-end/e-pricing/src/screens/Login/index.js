@@ -24,7 +24,6 @@ class Login extends Component {
     getRedirectionPath = () => {
         let query = new URLSearchParams(this.props.location.search);
         let redirectTo = query.get('redirectTo');
-        console.log('asdasdasdasds', redirectTo, this.props);
         return redirectTo;
     }
 

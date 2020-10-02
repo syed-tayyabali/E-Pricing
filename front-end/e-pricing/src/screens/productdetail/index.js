@@ -5,8 +5,9 @@ import parse from 'html-react-parser';
 import Button from 'react-bootstrap/Button';
 
 import { getProductDetail } from '../../store/actions/productDetail';
+import { postUserWishlist } from '../../store/actions/WishList';
 import './index.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -47,14 +48,32 @@ class ProductDetail extends Component {
         return productImg
     }
 
+    checkLogin = () => {
+        if (this.props.loggedIn) {
+            return '/wishList';
+        } else {
+            return '/login';
+        }
+    }
+
+    submitWishlist = () => {
+        const wishlist = {
+            userId: this.props.user._id,
+            productId: this.state.id,
+            quantity: 1
+        }
+        this.props.postUserWishlist(this.props.user._id, wishlist);
+    }
+
 
     render() {
+        console.log('detail ', this.props.user._id);
         if (this.props.loading) {
             return null;
         }
 
         return (
-            <div className='container-fluid '>
+            < div className='container-fluid ' >
                 <div className='row GreyBg'>
                     <div className='row mt-3 mr-5 ml-5 mb-3 bg-white rounded'>
                         <div className='col-lg-12'>
@@ -74,6 +93,11 @@ class ProductDetail extends Component {
                                     Compair Product
                                 </NavLink>
                                 <Button href={this.props.product.product_url} className="col-lg-5 ml-1 btn btn-secondary" type="button" >Product Link</Button>
+                                <NavLink className='col-lg-5 btn btn-secondary mt-2'
+                                    to={this.checkLogin}
+                                    onClick={this.submitWishlist}>
+                                    Add to Wishlist
+                                </NavLink>
                             </div>
                         </div>
                     </div>
@@ -90,21 +114,25 @@ class ProductDetail extends Component {
                         {this.props.product.overview && <div className='m-3'>{parse(this.props.product.overview)}</div>}
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        getProductDetail
+        getProductDetail,
+        postUserWishlist,
     }, dispatch)
 }
 
 const mapStateToProps = state => {
     const { product, loading } = state.productDetailReducer;
+    const { loggedIn, user } = state.loginReducer;
     return {
         product,
+        loggedIn,
+        user,
         loading
     }
 }

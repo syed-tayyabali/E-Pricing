@@ -14,6 +14,7 @@ import Login from './screens/Login';
 import TestScreen from './screens/testScreen/testScreen';
 import { checkLogin } from './store/actions/Login';
 import ProtectedRoute from './hoc/ProtectedRoute/ProtectedRoute';
+import WishList from './screens/wishList';
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class App extends Component {
     let routes = (
       <Switch>
         <ProtectedRoute exact path='/testScreen' component={TestScreen} />
+        <ProtectedRoute exact path='/wishList' component={WishList} />
         <Route exact path='/' component={Home} />
         <Route exact path='/category' component={Category} />
         <Route exact path='/products/:id' component={Products} />

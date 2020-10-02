@@ -16,11 +16,12 @@ router.get('/user/:userId', async (req, res) => {
         const productList = await productsModel.find({ '_id': { $in: productIds } });
 
         const products = userWishlist.products.map(product => {
-            let combineProducts = productList.find(productId => productId._id.toString() === product.productId);
-            combineProducts.quantity = product.quantity;
-            return combineProducts;
+            let combineProduct = productList.find(productId => productId._id.toString() === product.productId);
+            let newProduct = {...combineProduct._doc, quantity: product.quantity};
+            return newProduct;
         });
-        res.send({ userWishlist, products });
+        userWishlist.products = products;
+        res.send({ ...userWishlist._doc, products });
     } catch (e) {
         console.log(e)
         res.status(400).send(e);

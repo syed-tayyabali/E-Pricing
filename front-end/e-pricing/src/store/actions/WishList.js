@@ -21,6 +21,7 @@ function postUserWishlist(id, body) {
         dispatch(request(WISHLIST_ACTIONS.POST_WISHLIST_REQUEST));
         try {
             let res = await postWishList(id, body);
+            console.log('response ',res);
             const { userId, products } = res.data;
             dispatch(success(WISHLIST_ACTIONS.POST_WISHLIST_SUCCESS, { userId, products }));
         } catch (e) {

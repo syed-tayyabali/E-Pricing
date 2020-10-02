@@ -25,17 +25,15 @@ class WishList extends Component {
                 <div className='container'>
                     <ul className='list-group mt-2 mb-2'>
                         <li className='list-group-item'>
-                            <div className='container'>
-                                <div className='row'>
-                                    <div className='col-lg-7 ml-4 mt-2'>
-                                        <p className='font-weight-bold'>samsung sdfsdfsdfsdfsgsdv sgefsdf ddsgdfgdf dgdfgdfg</p>
-                                    </div>
-                                    <div className='col-lg-2'>
-                                        <p className='font-weight-bold mt-2 float-right'> Quantity: 1</p>
-                                    </div>
-                                    <div className='col-lg-2 ml-5'>
-                                        <Button variant="outline-danger float-right">Remove</Button>
-                                    </div>
+                            <div className='row'>
+                                <div className='col-lg-7 ml-4 mt-2'>
+                                    <p className='font-weight-bold'>samsung sdfsdfsdfsdfsgsdv sgefsdf ddsgdfgdf dgdfgdfg</p>
+                                </div>
+                                <div className='col-lg-2'>
+                                    <p className='font-weight-bold mt-2 float-right'> Quantity: 1</p>
+                                </div>
+                                <div className='col-lg-2 ml-5 mt-1'>
+                                    <Button variant="outline-danger float-right">Remove Item</Button>
                                 </div>
                             </div>
                         </li>

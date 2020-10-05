@@ -67,7 +67,19 @@ const loginReducer = (state = initialState, action) => {
             console.log('in success', action);
             return {
                 ...state,
-                loggedIn: action.payload,
+                user: { ...action.payload },
+                loggedIn: true,
+                loginError: '',
+                registerError: ''
+            };
+        case LOGIN_ACTIONS.CHECK_LOGIN_FAILURE:
+            console.log('in failure', action);
+            return {
+                ...state,
+                user: action.payload,
+                loggedIn: false,
+                loginError: '',
+                registerError: ''
             };
         default:
             return state;

@@ -41,12 +41,10 @@ class Login extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.user);
         this.props.fetchUser(this.state.user);
     }
 
     render() {
-        console.log('user details', this.props.user);
         return (
             <>
                 {this.props.loggedIn && <Redirect to={this.getRedirectionPath()} />}

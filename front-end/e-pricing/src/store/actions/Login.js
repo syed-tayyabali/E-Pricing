@@ -1,6 +1,7 @@
 import { request, success, failure } from './index';
 import { LOGIN_ACTIONS } from '../../constants/actions';
 import { loginAsync, registerAsync } from '../../service/AuthService';
+import { setToken, getToken, removeToken, setUser, getUser } from '../../service/localStorageService';
 
 let TOKEN_KEY = 'token';
 
@@ -10,7 +11,9 @@ function fetchUser(user) {
         try {
             let res = await loginAsync(user);
             const { _id, firstName, lastName, email, token } = res.data;
-            localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
+            setToken(token);
+            setUser(_id);
+            console.log('in login action ', getUser());
             dispatch(success(LOGIN_ACTIONS.LOGIN_SUCCESS, { _id, firstName, lastName, email, token }));
         }
         catch (e) {
@@ -26,7 +29,8 @@ function signUpUser(user) {
         try {
             let res = await registerAsync(user);
             const { _id, firstName, lastName, email, token } = res.data;
-            localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
+            setToken(token);
+            setUser(_id);
             dispatch(success(LOGIN_ACTIONS.REGISTRATION_SUCCESS, { _id, firstName, lastName, email, token }));
         }
         catch (e) {
@@ -38,17 +42,17 @@ function signUpUser(user) {
 
 function checkLogin() {
     return async dispatch => {
-        if (localStorage.getItem(TOKEN_KEY)) {
-            dispatch(success(LOGIN_ACTIONS.CHECK_LOGIN_SUCCESS, true))
+        if (getToken()) {
+            dispatch(success(LOGIN_ACTIONS.CHECK_LOGIN_SUCCESS, getUser()))
         } else {
-            dispatch(success(LOGIN_ACTIONS.CHECK_LOGIN_SUCCESS, false))
+            dispatch(failure(LOGIN_ACTIONS.CHECK_LOGIN_FAILURE, localStorage.removeItem('user')))
         }
     }
 }
 
 function logOut() {
     return async dispatch => {
-        dispatch(success(LOGIN_ACTIONS.LOGOUT_SUCCESS, localStorage.removeItem('token')))
+        dispatch(success(LOGIN_ACTIONS.LOGOUT_SUCCESS, removeToken(TOKEN_KEY)))
     }
 }
 

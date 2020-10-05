@@ -67,7 +67,7 @@ class ProductDetail extends Component {
 
 
     render() {
-        console.log('detail ', this.props.user._id);
+        console.log('product detail: user id', this.props.user._id);
         if (this.props.loading) {
             return null;
         }

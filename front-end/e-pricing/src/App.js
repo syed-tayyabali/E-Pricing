@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.loggedIn);
+    console.log('app.js login boolean ', this.props.user);
     let routes = (
       <Switch>
         <ProtectedRoute exact path='/testScreen' component={TestScreen} />

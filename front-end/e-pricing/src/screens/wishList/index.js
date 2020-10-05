@@ -8,12 +8,13 @@ import { Button } from 'react-bootstrap';
 class WishList extends Component {
 
     componentDidMount() {
+        console.log('wishlist product', this.props.getUserWishlist(this.props.user._id));
         this.props.getUserWishlist(this.props.user._id);
         console.log('wishList user id', this.props.user._id);
     }
 
     render() {
-        console.log('wislist products', this.props.products.heading);
+        // console.log('wislist product heading', this.props.products.heading);
         return (
             <div>
                 <div className='d-flex justify-content-center py-5 bg-light font-weight-light text-muted'>

@@ -1,3 +1,4 @@
+const authMiddleWare = require('../middleWare/authMiddleWare');
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
@@ -6,7 +7,7 @@ const { wishList } = require('../models/wishListModel');
 const { userModel } = require('../models/UserModel');
 const { productsModel } = require('../models/ProductsModel');
 
-router.get('/user/:userId', async (req, res) => {
+router.get('/user/:userId', authMiddleWare, async (req, res) => {
     try {
         const userWishlist = await wishList.findOne({ userId: req.params.userId });
         const productIds = userWishlist.products.map(product => {
@@ -17,7 +18,7 @@ router.get('/user/:userId', async (req, res) => {
 
         const products = userWishlist.products.map(product => {
             let combineProduct = productList.find(productId => productId._id.toString() === product.productId);
-            let newProduct = {...combineProduct._doc, quantity: product.quantity};
+            let newProduct = { ...combineProduct._doc, quantity: product.quantity };
             return newProduct;
         });
         userWishlist.products = products;
@@ -28,7 +29,7 @@ router.get('/user/:userId', async (req, res) => {
     }
 });
 
-router.post('/:userId', async (req, res) => {
+router.post('/:userId', authMiddleWare, async (req, res) => {
     try {
         let user = await userModel.findOne({ _id: req.params.userId });
         if (!user) return res.status(404).send('User Not Found!!');
@@ -50,7 +51,7 @@ router.post('/:userId', async (req, res) => {
     }
 });
 
-router.put('/updateWishList/:updateId', async (req, res) => {
+router.put('/updateWishList/:updateId', authMiddleWare, async (req, res) => {
     try {
         let wishlistItem = await wishList.findOne({ userId: req.params.updateId });
         if (!wishlistItem) return res.status(404).send('User Not Found');
@@ -68,7 +69,7 @@ router.put('/updateWishList/:updateId', async (req, res) => {
     }
 });
 
-router.delete('/deleteWishList/:deleteId', async (req, res) => {
+router.delete('/deleteWishList/:deleteId', authMiddleWare, async (req, res) => {
     try {
         let wishlistItem = await wishList.findOne({ userId: req.params.deleteId });
         if (!wishlistItem) return res.status(404).send('User Not Found');

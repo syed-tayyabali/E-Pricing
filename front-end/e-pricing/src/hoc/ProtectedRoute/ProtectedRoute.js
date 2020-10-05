@@ -8,6 +8,7 @@ import { checkLogin } from '../../store/actions/Login';
 class ProtectedRoute extends Component {
     constructor(props) {
         super(props);
+        // debugger
         this.props.checkLogin();
     }
 

@@ -28,7 +28,6 @@ class ProductComparison extends Component {
         let seller_keyId = query.get('seller_keyId');
         let heading = query.get('heading');
         let id = query.get('id');
-        console.log()
         return {
             type,
             seller_keyId,

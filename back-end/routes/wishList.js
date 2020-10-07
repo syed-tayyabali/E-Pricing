@@ -74,11 +74,25 @@ router.delete('/deleteWishList/:deleteId', authMiddleWare, async (req, res) => {
         let wishlistItem = await wishList.findOne({ userId: req.params.deleteId });
         if (!wishlistItem) return res.status(404).send('User Not Found');
 
-        console.log(req.body.productId);
+        // deleting from array
         const removedProducts = wishlistItem.products.filter(remove => remove.productId != req.body.productId);
         wishlistItem.products = removedProducts;
-        await wishlistItem.save();
-        res.send(wishlistItem)
+
+        // updated document
+        const newDoc = await wishlistItem.save();
+        const productIds = newDoc.products.map(product => {
+            return product.productId;
+        });
+        const productList = await productsModel.find({ '_id': { $in: productIds } });
+        const products = newDoc.products.map(product => {
+            let combineProduct = productList.find(productId => productId._id.toString() === product.productId);
+            let newProduct = { ...combineProduct._doc, quantity: product.quantity };
+            return newProduct;
+        });
+        newDoc.products = products;
+
+
+        res.send({ ...newDoc._doc, products })
     } catch (e) {
         console.log(e)
         res.status(400).send(e);

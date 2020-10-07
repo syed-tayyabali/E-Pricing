@@ -24,7 +24,10 @@ async function updateWishList(id, body) {
 async function deleteWishList(id, body) {
     const url = constructUrl(URLS.DELETE_WISHLISH + id);
     const productId = body.productId;
-    instance.delete(url, { productId });
+    console.log('wishlist service body', body);
+    console.log('wishlist service user id', id);
+    console.log('wishlist service url', url);
+    return instance.delete(url, { data: { productId } });
 }
 
 export { getWishList, postWishList, updateWishList, deleteWishList };

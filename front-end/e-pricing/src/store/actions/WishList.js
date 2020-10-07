@@ -21,7 +21,6 @@ function postUserWishlist(id, body) {
         dispatch(request(WISHLIST_ACTIONS.POST_WISHLIST_REQUEST));
         try {
             let res = await postWishList(id, body);
-            console.log('response ',res);
             const { userId, products } = res.data;
             dispatch(success(WISHLIST_ACTIONS.POST_WISHLIST_SUCCESS, { userId, products }));
         } catch (e) {
@@ -50,6 +49,7 @@ function deleteUserWishList(id, body) {
         dispatch(request(WISHLIST_ACTIONS.DELETE_WISHLIST_REQUEST));
         try {
             let res = await deleteWishList(id, body);
+            console.log('wishlist response ', res.data);
             const { userId, products } = res.data;
             dispatch(success(WISHLIST_ACTIONS.DELETE_WISHLIST_SUCCESS, { userId, products }));
         } catch (e) {

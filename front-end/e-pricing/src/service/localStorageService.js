@@ -10,16 +10,17 @@ function removeToken() {
     localStorage.removeItem('token');
 }
 
-function setUser(_id) {
-    localStorage.setItem('user', _id);
+function setUser(_id, firstName, lastName, email, token) {
+    localStorage.setItem('user', JSON.stringify({ _id, firstName, lastName, email, token }));
 }
 
 function getUser() {
-    return localStorage.getItem('user');
+    let str =  localStorage.getItem('user');
+    return JSON.parse(str);
 }
 
 function removeUser() {
     localStorage.removeItem('user');
 }
 
-export { setToken, getToken, removeToken, setUser, getUser };
+export { setToken, getToken, removeToken, setUser, getUser, removeUser };

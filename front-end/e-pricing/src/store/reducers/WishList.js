@@ -82,10 +82,7 @@ const wishlistReducer = (state = initialState, action) => {
             console.log('in success', action);
             return {
                 userId: action.payload.userId,
-                products: {
-                    productId: action.payload,
-                    quantity: action.payload
-                }
+                products: action.payload.products
             };
         case WISHLIST_ACTIONS.DELETE_WISHLIST_FAILURE:
             console.log('in failure', action);

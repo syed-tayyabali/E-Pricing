@@ -74,6 +74,7 @@ router.delete('/deleteWishList/:deleteId', authMiddleWare, async (req, res) => {
         let wishlistItem = await wishList.findOne({ userId: req.params.deleteId });
         if (!wishlistItem) return res.status(404).send('User Not Found');
 
+        console.log(req.body.productId);
         const removedProducts = wishlistItem.products.filter(remove => remove.productId != req.body.productId);
         wishlistItem.products = removedProducts;
         await wishlistItem.save();

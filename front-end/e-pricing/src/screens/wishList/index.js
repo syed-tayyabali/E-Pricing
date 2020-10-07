@@ -6,15 +6,21 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
 class WishList extends Component {
-
     componentDidMount() {
         console.log('wishlist product', this.props.getUserWishlist(this.props.user._id));
         this.props.getUserWishlist(this.props.user._id);
         console.log('wishList user id', this.props.user._id);
     }
 
+    removeProduct = (id) => {
+        console.log('wishlist file ', id);
+        const productId = {
+            productId: id
+        }
+        this.props.deleteUserWishList(this.props.user._id, productId)
+    }
+
     render() {
-        // console.log('wislist product heading', this.props.products.heading);
         return (
             <div>
                 <div className='d-flex justify-content-center py-5 bg-light font-weight-light text-muted'>
@@ -25,22 +31,32 @@ class WishList extends Component {
                 </div>
                 <div className='container'>
                     <ul className='list-group mt-2 mb-2'>
-                        <li className='list-group-item'>
-                            <div className='row'>
-                                <div className='col-lg-7 ml-4 mt-2'>
-                                    <p className='font-weight-bold'>samsung sdfsdfsdfsdfsgsdv sgefsdf ddsgdfgdf dgdfgdfg</p>
-                                </div>
-                                <div className='col-lg-2'>
-                                    <p className='font-weight-bold mt-2 float-right'> Quantity: 1</p>
-                                </div>
-                                <div className='col-lg-2 ml-5 mt-1'>
-                                    <Button variant="outline-danger float-right">Remove Item</Button>
-                                </div>
-                            </div>
-                        </li>
+                        {
+                            this.props.products[0] ? this.props.products.map(product => (
+                                <li className='list-group-item mb-2'>
+                                    <div className='row'>
+                                        <div className='col-lg-7 ml-4 mt-2'>
+                                            <p className='font-weight-bold'>{product.heading}</p>
+                                        </div>
+                                        <div className='col-lg-2'>
+                                            <p className='font-weight-bold mt-2 float-right'> Quantity: {product.quantity}</p>
+                                        </div>
+                                        <div className='col-lg-2 ml-5 mt-1'>
+                                            <Button variant="outline-danger float-right"
+                                                onClick={() => {
+                                                    this.removeProduct(product._id)
+                                                }}
+                                            >
+                                                Remove Item
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </li>
+                            )) : null
+                        }
                     </ul>
                 </div>
-            </div>
+            </div >
         )
     }
 }

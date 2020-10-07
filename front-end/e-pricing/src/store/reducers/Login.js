@@ -2,7 +2,7 @@ import { LOGIN_ACTIONS } from '../../constants/actions';
 
 const initialState = {
     loggedIn: false,
-    user: {},
+    user: null,
     loginError: '',
     registerError: ''
 }
@@ -21,7 +21,7 @@ const loginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loggedIn: true,
-                user: { ...action.payload },
+                user: action.payload,
                 loginError: ''
             };
         case LOGIN_ACTIONS.LOGIN_FAILURE:
@@ -44,7 +44,7 @@ const loginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loggedIn: true,
-                user: { ...action.payload },
+                user: action.payload,
                 registerError: ''
             };
         case LOGIN_ACTIONS.REGISTRATION_FAILURE:
@@ -67,7 +67,7 @@ const loginReducer = (state = initialState, action) => {
             console.log('in success', action);
             return {
                 ...state,
-                user: { ...action.payload },
+                user: action.payload,
                 loggedIn: true,
                 loginError: '',
                 registerError: ''

@@ -1,7 +1,7 @@
 import { request, success, failure } from './index';
 import { LOGIN_ACTIONS } from '../../constants/actions';
 import { loginAsync, registerAsync } from '../../service/AuthService';
-import { setToken, getToken, removeToken, setUser, getUser } from '../../service/localStorageService';
+import { setToken, getToken, removeToken, setUser, getUser, removeUser } from '../../service/localStorageService';
 
 let TOKEN_KEY = 'token';
 
@@ -12,7 +12,7 @@ function fetchUser(user) {
             let res = await loginAsync(user);
             const { _id, firstName, lastName, email, token } = res.data;
             setToken(token);
-            setUser(_id);
+            setUser(_id, firstName, lastName, email, token);
             console.log('in login action ', getUser());
             dispatch(success(LOGIN_ACTIONS.LOGIN_SUCCESS, { _id, firstName, lastName, email, token }));
         }
@@ -30,7 +30,7 @@ function signUpUser(user) {
             let res = await registerAsync(user);
             const { _id, firstName, lastName, email, token } = res.data;
             setToken(token);
-            setUser(_id);
+            setUser(_id, firstName, lastName, email, token);
             dispatch(success(LOGIN_ACTIONS.REGISTRATION_SUCCESS, { _id, firstName, lastName, email, token }));
         }
         catch (e) {
@@ -52,7 +52,8 @@ function checkLogin() {
 
 function logOut() {
     return async dispatch => {
-        dispatch(success(LOGIN_ACTIONS.LOGOUT_SUCCESS, removeToken(TOKEN_KEY)))
+        dispatch(success(LOGIN_ACTIONS.LOGOUT_SUCCESS, removeToken(TOKEN_KEY)));
+        dispatch(success(LOGIN_ACTIONS.LOGOUT_SUCCESS, removeUser()));
     }
 }
 

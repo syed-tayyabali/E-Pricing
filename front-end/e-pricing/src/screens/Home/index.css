@@ -1,0 +1,17 @@
+.span11 {
+    overflow: auto
+}
+
+.row-fluid {
+    white-space: nowrap;
+}
+
+.row-fluid .col-lg-2 {
+    display: inline-block;
+    word-break: break-all;    
+    /* float: none; */
+}
+
+.inbox {
+    font-size: small;
+}

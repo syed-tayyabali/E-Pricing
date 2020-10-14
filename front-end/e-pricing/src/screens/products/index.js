@@ -44,7 +44,6 @@ class Products extends Component {
                 this.props.getWebCollection(this.state.id);
             })
         }
-        console.log(this.props);
         if (this.props.match.params.webCollectionId && prevProps.match.params.webCollectionId !== this.props.match.params.webCollectionId) {
             this.setState({ id: this.props.match.params.id, webCollectionId: this.props.match.params.webCollectionId }, () => {
                 this.props.getProducts(this.state.id, null, this.state.webCollectionId);

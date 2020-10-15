@@ -18,7 +18,8 @@ class ProductComparison extends Component {
             filter: {
                 heading,
                 id
-            }
+            },
+            checkNextProduct: false
         }
     }
 
@@ -43,7 +44,6 @@ class ProductComparison extends Component {
     }
 
     arrayDescription = () => {
-
         if (!this.props.compairedProducts) {
             return null;
         }
@@ -53,17 +53,6 @@ class ProductComparison extends Component {
             })
         });
         return description;
-    }
-
-    productImg = (product) => {
-        if (!product) {
-            return '';
-        }
-        let img = <img src={product.productLargeImg} width='60%' />;
-        if (!product.productLargeImg) {
-            img = <img src={product.productSmallImg} width='100%' />;
-        }
-        return img;
     }
 
     arrayHeading = () => {
@@ -80,24 +69,109 @@ class ProductComparison extends Component {
         return name;
     }
 
+    productImg = (product) => {
+        console.log('in productImg function ', product);
+        if (!product) {
+            return '';
+        }
+        let img = <img src={product.productLargeImg} width='60%' />;
+        if (!product.productLargeImg) {
+            img = <img src={product.productSmallImg} width='100%' />;
+        }
+        console.log('in productImg function return', img);
+        return img;
+    }
+
+    toggleNextProduct = () => {
+        this.setState({ checkNextProduct: !this.state.checkNextProduct });
+    }
+
+    prevProductImg = () => {
+        let productImg = this.props.product.productLargeImg;
+        if (!productImg) {
+            productImg = this.props.product.productSmallImg;
+        }
+        return productImg
+    }
+
+    arrayDescription = () => {
+        if (!this.props.product.description) {
+            return null;
+        }
+        let description = this.props.product.description.map((describe, index) => {
+            return parse(describe)
+        });
+        return description;
+    }
+
     render() {
         return (
             < div className='container-fluid GreyBg'>
                 <div className='row ml-4'>
-                    {
+                    {/* previous mobile  */}
+                    <div className='row col-lg-6 mt-3 mb-3 bg-white rounded'>
+                        <div className='col-lg-12'>
+                            <h3 className='m-3'>{this.props.product.heading}</h3>
+                            <hr />
+                        </div>
+                        <div className='col-lg-4 col-md-6 col-sm-12'>
+                            <img className='ml-5' src={`${this.prevProductImg()}`} width='60%'></img>
+                        </div>
+                        <div className='col-lg-8'>
+                            <h3 className='text-black-50 font-italic'>Seller: {this.props.product.seller_key}</h3>
+                            <h3 className='text-black-50 font-italic'>Rs. {this.props.product.price}</h3>
+                            <br />
+                            <Button href={this.props.product.product_url} className="col-lg-5 ml-1 mb-3 btn btn-primary" type="button" >Product Link</Button>
+                        </div>
+                    </div>
+
+                    {/* compaired mobile */}
+                    {this.state.checkNextProduct ? this.props.compairedProducts[1] && <div className='row col-lg-6 mt-3 ml-4 mb-3 bg-white rounded'>
+                        <div className='col-lg-12'>
+                            <h3 className='m-3'>{this.props.compairedProducts[1].heading}</h3>
+                            <hr />
+                        </div>
+                        <div className='col-lg-4 col-md-6 col-sm-12'>
+                            {this.productImg(this.props.compairedProducts[1])}
+                        </div>
+                        <div className='col-lg-8'>
+                            <h3 className='text-black-50 font-italic'>Seller: {this.props.compairedProducts[1].seller_key}</h3>
+                            <h3 className='text-black-50 font-italic'>Rs. {this.props.compairedProducts[0].price}</h3>
+                            <br />
+                            <Button href={this.props.compairedProducts[1].product_url} className="col-lg-5 ml-1 mb-3 btn btn-primary" type="button" >Product Link</Button>
+                        </div>
+                    </div>
+                        : this.props.compairedProducts[0] && <div className='row col-lg-6 mt-3 ml-4 mb-3 bg-white rounded'>
+                            <div className='col-lg-12'>
+                                <h3 className='m-3'>{this.props.compairedProducts[0].heading}</h3>
+                                <hr />
+                            </div>
+                            <div className='col-lg-4 col-md-6 col-sm-12'>
+                                {this.productImg(this.props.compairedProducts[0])}
+                            </div>
+                            <div className='col-lg-8'>
+                                <h3 className='text-black-50 font-italic'>Seller: {this.props.compairedProducts[0].seller_key}</h3>
+                                <h3 className='text-black-50 font-italic'>Rs. {this.props.compairedProducts[0].price}</h3>
+                                <br />
+                                <Button href={this.props.compairedProducts[0].product_url} className="col-lg-5 ml-1 mb-3 btn btn-primary" type="button" >Product Link</Button>
+                            </div>
+                        </div>
+                    }
+
+                    {/* previous Method */}
+                    {/* {
                         this.props.compairedProducts.map((product, index) => {
                             return (
                                 <div className='row col-lg-5 mt-3 mr-5 ml-5 mb-3 bg-white rounded'>
                                     <div className='col-lg-12'>
                                         <h3 className='m-3'>{product.heading}</h3>
                                         <hr />
-                                        <p>{product.seller_key}</p>
-                                        <hr />
                                     </div>
                                     <div className='col-lg-4 col-md-6 col-sm-12'>
                                         {this.productImg(product)}
                                     </div>
                                     <div className='col-lg-8'>
+                                        <h3 className='text-black-50 font-italic'>Seller: {product.seller_key}</h3>
                                         <h3 className='text-black-50 font-italic'>Rs. {product.price}</h3>
                                         <br />
                                         <Button href={product.product_url} className="col-lg-5 ml-1 mb-3 btn btn-secondary" type="button" >Product Link</Button>
@@ -105,10 +179,37 @@ class ProductComparison extends Component {
                                 </div>
                             )
                         })
-                    }
+                    } */}
                 </div>
-                <div className='row ml-4'>
-                    {this.props.compairedProducts.map(product => {
+
+                <div className='row ml-1'>
+                    {/* previous mobile */}
+                    <div className='col-lg-6 mt-3 mb-3 bg-white rounded fit'>
+                        <br />
+                        <h4>{this.props.product.heading} Specification<hr /></h4>
+                        <br />
+                        {this.arrayDescription()}
+                    </div>
+
+                    {/* compaired mobile */}
+                    {this.state.checkNextProduct ? this.props.compairedProducts[1] && <div className='col-lg mt-3 ml-2 mb-3 bg-white rounded fit'>
+                        <br />
+                        <h4>{this.props.compairedProducts[1].heading}</h4>
+                        <hr />
+                        <br />
+                        {parse(this.props.compairedProducts[1].description[0])}
+                    </div>
+                        : this.props.compairedProducts[0] && <div className='col-lg mt-3 ml-2 mb-3 bg-white rounded fit'>
+                            <br />
+                            <h4>{this.props.compairedProducts[0].heading}</h4>
+                            <hr />
+                            <br />
+                            {parse(this.props.compairedProducts[0].description[0])}
+                        </div>
+                    }
+
+                    {/* previous method */}
+                    {/* {this.props.compairedProducts.map(product => {
                         const description = product.description[0];
                         return description && <div className='col-lg-6 mt-4 mb-4 rounded bg-white fit'>
                             <br />
@@ -117,7 +218,22 @@ class ProductComparison extends Component {
                             <br />
                             {parse(description)}
                         </div>;
-                    })}
+                    })} */}
+                </div>
+                <div className='row'>
+                    <div className='col text-center'>
+                        {
+                            this.props.compairedProducts[1] ? <Button
+                                className='col-lg-5 ml-1 mb-3 btn btn-primary'
+                                onClick={this.toggleNextProduct}
+                            >
+                                Compare with {
+                                    this.state.checkNextProduct ? this.props.compairedProducts[0] && this.props.compairedProducts[0].seller_key
+                                        : this.props.compairedProducts[1] && this.props.compairedProducts[1].seller_key
+                                } Product
+                    </Button> : null
+                        }
+                    </div>
                 </div>
             </div >
         );

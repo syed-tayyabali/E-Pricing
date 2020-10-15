@@ -67,7 +67,7 @@ class ProductDetail extends Component {
 
 
     render() {
-        console.log('product detail: user id', this.props.user._id);
+        // console.log('product detail: user id', this.props.user._id);
         if (this.props.loading) {
             return null;
         }
@@ -84,8 +84,8 @@ class ProductDetail extends Component {
                             <img className='ml-5' src={`${this.productImg()}`} width='60%'></img>
                         </div>
                         <div className='col-lg-8 mt-5'>
+                            <h3 className='text-black-50 font-italic'>This mobile is available at {this.props.product.seller_key}</h3>
                             <h3 className='text-black-50 font-italic'>Rs. {this.props.product.price}</h3>
-                            <br />
                             <br />
                             <div className='row'>
                                 <NavLink className='col-lg-5 btn btn-secondary '
@@ -93,7 +93,7 @@ class ProductDetail extends Component {
                                     Compair Product
                                 </NavLink>
                                 <Button href={this.props.product.product_url} className="col-lg-5 ml-1 btn btn-secondary" type="button" >Product Link</Button>
-                                <NavLink className='col-lg-5 btn btn-secondary mt-2'
+                                <NavLink className='col-lg-5 btn btn-secondary mt-2 mb-2'
                                     to={this.checkLogin}
                                     onClick={this.submitWishlist}>
                                     Add to Wishlist

@@ -20,6 +20,20 @@ router.get('/', async (req, res) => {
     res.send({ productList, categories, countProduct });
 });
 
+
+//home page
+router.get('/home', async (req, res) => {
+    try {
+        const laptops = await productsModel.find({ type: 25 }).limit(20);
+        const mobiles = await productsModel.find({ type: 50 }).limit(20);
+        const tablets = await productsModel.find({ type: 75 }).limit(20);
+        res.send({ laptops, mobiles, tablets });
+    } catch (e) {
+        console.log(e);
+        res.status(404).send(e);
+    }
+});
+
 //SPECIFIC PRODUCT DESCRIPTION
 router.get('/:id', async (req, res) => {
     var _id = new mongoose.Types.ObjectId(req.params.id);
@@ -60,8 +74,6 @@ router.get('/webCollection/:seller_keyID', async (req, res) => {
     const categories = await productsModel.find(query(req)).distinct('category');
     res.send({ products, categories, countProduct });
 })
-
-
 
 router.get('/type/:typeId/:seller_keyID', async (req, res) => {
     let size = parseInt(req.query.size) || 20;

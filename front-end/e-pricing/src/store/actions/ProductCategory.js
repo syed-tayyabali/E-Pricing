@@ -2,7 +2,6 @@ import { PRODUCT_CATEGORY_ACTIONS } from "../../constants/actions";
 import { request, success, failure } from './index';
 import { getProductCategoryAsync } from '../../service/ProductCategoryService';
 
-
 function getProductCategory() {
     return async dispatch => {
         dispatch(request(PRODUCT_CATEGORY_ACTIONS.GET_PRODUCT_BRAND_CATEGORY_REQUEST));

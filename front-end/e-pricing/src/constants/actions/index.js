@@ -7,6 +7,7 @@ import PRODUCT_CATEGORY_ACTIONS from './ProductCategory';
 import PRODUCT_COMPARISON_ACTIONS from './ProductComparsion';
 import LOGIN_ACTIONS from './Auth';
 import WISHLIST_ACTIONS from './WishList';
+import HOME_ACTIONS from './Home';
 
 export {
     CATEGORY_ACTIONS,
@@ -17,5 +18,6 @@ export {
     PRODUCT_CATEGORY_ACTIONS,
     PRODUCT_COMPARISON_ACTIONS,
     LOGIN_ACTIONS,
-    WISHLIST_ACTIONS
+    WISHLIST_ACTIONS,
+    HOME_ACTIONS,
 }

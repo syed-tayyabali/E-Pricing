@@ -11,5 +11,6 @@ export const URLS = {
     UPDATE_WISHlIST: '/api/wishList/updateWishList/',
     DELETE_WISHLISH: '/api/wishList/deleteWishList/',
     LOGIN: '/api/auth/',
-    REGISTER: '/api/users/'
+    REGISTER: '/api/users/',
+    HOME: '/api/products/home',
 };

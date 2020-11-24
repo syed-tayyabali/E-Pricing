@@ -12,7 +12,7 @@ import facebook from '../../assets/facebook.png';
 import twiter from '../../assets/twiter.png';
 import instagram from '../../assets/insta.jpg';
 import youtube from '../../assets/youtube.png';
-import logo from '../../assets/logo.jpeg';
+import logo from '../../assets/Tayyab.jpg';
 import { checkLogin, logOut } from '../../store/actions/Login';
 
 const DISPLAY_NONE_CLASS = 'display-none';

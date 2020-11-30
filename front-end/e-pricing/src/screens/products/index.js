@@ -109,7 +109,7 @@ class Products extends Component {
         this.setState({
             filters: {
                 ...this.state.filters,
-                priceMax: 0,
+                priceMax: 500000,
                 priceMin: 0,
             }
         }, () => this.props.getProducts(id, this.state.filters, webCollectionId));

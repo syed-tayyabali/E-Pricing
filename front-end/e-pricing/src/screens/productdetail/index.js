@@ -84,7 +84,7 @@ class ProductDetail extends Component {
                             <img className='ml-5' src={`${this.productImg()}`} width='60%'></img>
                         </div>
                         <div className='col-lg-8 mt-5'>
-                            <h3 className='text-black-50 font-italic'>This mobile is available at {this.props.product.seller_key}</h3>
+                            <h3 className='text-black-50 font-italic'>This product is available at {this.props.product.seller_key}</h3>
                             <h3 className='text-black-50 font-italic'>Rs. {this.props.product.price}</h3>
                             <br />
                             <div className='row'>

@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { getProductComparsion } from '../../store/actions/ProductComparsion';
 import { getProductDetail } from '../../store/actions/productDetail';
 import './index.css'
+import { custumParse } from '../../utilities';
 
 class ProductComparison extends Component {
     constructor(props) {
@@ -197,9 +198,10 @@ class ProductComparison extends Component {
                         <h4>{this.props.compairedProducts[1].heading}</h4>
                         <hr />
                         <br />
-                        {parse(this.props.compairedProducts[1].description[0])}
+                        {custumParse(this.props.compairedProducts[1].description[0], this.props.compairedProducts[1].description)}
+                        {/* {this.props.compairedProducts[1].description[0] && parse(this.props.compairedProducts[1].description[0])} */}
                     </div>
-                        : this.props.compairedProducts[0] && <div className='col-lg mt-3 ml-2 mb-3 bg-white rounded fit'>
+                        : this.props.compairedProducts && this.props.compairedProducts[0] && <div className='col-lg mt-3 ml-2 mb-3 bg-white rounded fit'>
                             <br />
                             <h4>{this.props.compairedProducts[0].heading}</h4>
                             <hr />
@@ -208,17 +210,6 @@ class ProductComparison extends Component {
                         </div>
                     }
 
-                    {/* previous method */}
-                    {/* {this.props.compairedProducts.map(product => {
-                        const description = product.description[0];
-                        return description && <div className='col-lg-6 mt-4 mb-4 rounded bg-white fit'>
-                            <br />
-                            <h4>{product.heading}</h4>
-                            <hr />
-                            <br />
-                            {parse(description)}
-                        </div>;
-                    })} */}
                 </div>
                 <div className='row'>
                     <div className='col text-center'>

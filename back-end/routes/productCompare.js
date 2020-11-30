@@ -20,8 +20,7 @@ router.get('/:typeId/:seller_keyID', async (req, res) => {
         },
             { score: { $meta: "textScore" } }
         )
-        .sort({ score: { $meta: "textScore" } })
-        .limit(10);
+        .sort({ score: { $meta: "textScore" } });
 
     const data = {};
     let result = [];

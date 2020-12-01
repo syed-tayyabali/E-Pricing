@@ -198,8 +198,8 @@ class ProductComparison extends Component {
                         <h4>{this.props.compairedProducts[1].heading}</h4>
                         <hr />
                         <br />
-                        {custumParse(this.props.compairedProducts[1].description[0], this.props.compairedProducts[1].description)}
-                        {/* {this.props.compairedProducts[1].description[0] && parse(this.props.compairedProducts[1].description[0])} */}
+                        {/* {custumParse(this.props.compairedProducts[1].description[0], this.props.compairedProducts[1].description)} */}
+                        {this.props.compairedProducts[1].description && parse(this.props.compairedProducts[1].description[0])}
                     </div>
                         : this.props.compairedProducts && this.props.compairedProducts[0] && <div className='col-lg mt-3 ml-2 mb-3 bg-white rounded fit'>
                             <br />

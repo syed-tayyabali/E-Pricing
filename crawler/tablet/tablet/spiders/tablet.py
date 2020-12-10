@@ -31,13 +31,13 @@ class TabletSpider(scrapy.Spider):
         category1 = category1.split(" ")
 
         yield{
-            'heading': response.xpath("//div[@id='wrapper']/section[2]/section[1]/figure[1]/div/h1/text()").getall(),
+            'heading': response.xpath("//div[@id='wrapper']/section[2]/section[1]/figure[1]/div/h1/text()").get(),
             'product_url': web_url+response.meta.get("product_url"),
             'productSmallImg': web_url+response.meta.get("productSmallImg"),
             # 'productLargeImg': response.xpath("//div[@id='wrapper']//div/div/div/img/@src").get(),
             'price': price("//div[@id='wrapper']/section[2]/section[1]/figure[1]/div/div/div[2]/div/div/h3/span[2]/font/text()"),
-            'description': response.xpath("//div[@id='wrapper']/section[2]/section[1]/figure[1]/div/div/div[2]/ul[1]").getall(),
-            'overview': response.xpath("//div[@id='wrapper']/section[2]/section[1]/figure[1]/div[1]/article/div[1]/ul").getall(),
+            'description': response.xpath("//div[@id='wrapper']/section[2]/section[1]/figure[1]/div/div/div[2]/ul[1]").get(),
+            'overview': response.xpath("//div[@id='wrapper']/section[2]/section[1]/figure[1]/div[1]/article/div[1]/ul").get(),
             'category': category1[0],
             'seller_key': 'tablet',
             'seller_keyID': 7,

@@ -87,9 +87,6 @@ class Login extends Component {
                                     <p className="forgot-password text-right">
                                         Not Registered? <NavLink to='/register'>SignUp</NavLink>
                                     </p>
-                                    <p className="forgot-password text-right">
-                                        Forgot <a href="#">password?</a>
-                                    </p>
                                 </Form>
                             </div>
                         </div>

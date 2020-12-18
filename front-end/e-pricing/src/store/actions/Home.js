@@ -8,7 +8,7 @@ function getHomeProducts() {
         try {
             const res = await getHomeProductsAsync();
             const homeProducts = res.data;
-            console.log('in home actions ', homeProducts);
+            // console.log('in home actions ', homeProducts);
             dispatch(success(HOME_ACTIONS.GET_HOME_PRODUCT_SUCCUSS, homeProducts));
         } catch (e) {
             dispatch(failure(HOME_ACTIONS.GET_HOME_PRODUCT_FAILURE, 'something went wrong'))

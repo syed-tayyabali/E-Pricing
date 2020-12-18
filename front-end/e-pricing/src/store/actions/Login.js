@@ -29,8 +29,8 @@ function signUpUser(user) {
         try {
             let res = await registerAsync(user);
             const { _id, firstName, lastName, email, token } = res.data;
-            setToken(token);
-            setUser(_id, firstName, lastName, email, token);
+            // setToken(token);
+            // setUser(_id, firstName, lastName, email, token);
             dispatch(success(LOGIN_ACTIONS.REGISTRATION_SUCCESS, { _id, firstName, lastName, email, token }));
         }
         catch (e) {
@@ -38,6 +38,10 @@ function signUpUser(user) {
             dispatch(failure(LOGIN_ACTIONS.REGISTRATION_FAILURE, e.response.data))
         }
     }
+}
+
+function setRegisteredFlag(val = false) {
+    return dispatch => dispatch(success(LOGIN_ACTIONS.SET_REGISTRATION_FLAG, val))
 }
 
 function checkLogin() {
@@ -57,4 +61,4 @@ function logOut() {
     }
 }
 
-export { signUpUser, fetchUser, checkLogin, logOut };
+export { signUpUser, fetchUser, checkLogin, logOut, setRegisteredFlag };

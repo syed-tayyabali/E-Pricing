@@ -58,11 +58,11 @@ class ProductDetail extends Component {
 
     submitWishlist = () => {
         const wishlist = {
-            userId: this.props.user._id,
+            userId: this.props.user && this.props.user._id,
             productId: this.state.id,
             quantity: 1
         }
-        this.props.postUserWishlist(this.props.user._id, wishlist);
+        this.props.postUserWishlist(this.props.user && this.props.user._id, wishlist);
     }
 
 

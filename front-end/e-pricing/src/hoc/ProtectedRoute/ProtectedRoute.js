@@ -15,7 +15,8 @@ class ProtectedRoute extends Component {
     render() {
         const Component = this.props.component;
         const isAuthenticated = this.props.loggedIn;
-        return isAuthenticated ? (
+        const userIn = this.props.user;
+        return isAuthenticated && userIn ? (
             <Component />
         ) : <Redirect to='/login' />
     }

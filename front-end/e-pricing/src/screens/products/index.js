@@ -28,7 +28,7 @@ class Products extends Component {
                 pageNo: 1,
             },
             loading: false,
-            visible: false,
+            visible: true,
         };
 
         this.onToggleButton = this.onToggleButton.bind(this);
@@ -167,10 +167,11 @@ class Products extends Component {
                         <div className="col-lg-2 mt-4 ml-5 filter">
                             <div className='row'>
                                 <div className='col-lg-12 col-md-12 col-sm-12 bg-white rounded'>
-                                    <Button onClick={this.onToggleButton}
+                                    {/* <Button onClick={this.onToggleButton}
                                         className='font-italic'
                                         variant="outline-info mt-2 mb-3"
-                                    >Search By Name</Button>
+                                    >Search By Name</Button> */}
+                                    <h4 className='text-muted font-italic'>Search By Name</h4>
                                     {this.state.visible &&
                                         <div>
                                             <div>

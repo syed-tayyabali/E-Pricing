@@ -24,6 +24,7 @@ class App extends Component {
 
   render() {
     console.log('app.js login boolean ', this.props.user);
+    console.log('app.js registerSuccess boolean ', this.props.registerSuccess);
     let routes = (
       <Switch>
         <ProtectedRoute exact path='/testScreen' component={TestScreen} />
@@ -56,9 +57,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  const { loggedIn, user } = state.loginReducer;
+  const { loggedIn, user, registerSuccess } = state.loginReducer;
   return {
     loggedIn,
+    registerSuccess,
     user
   }
 }

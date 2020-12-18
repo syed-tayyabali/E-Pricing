@@ -5,13 +5,17 @@ import { NavLink } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
-import { signUpUser } from '../../store/actions/Login';
+
+import { signUpUser, setRegisteredFlag } from '../../store/actions/Login';
 import './index.css';
 
 class Register extends Component {
     constructor(props) {
         super(props);
+        // console.log(props)
         this.state = {
             user: {
                 firstName: '',
@@ -40,6 +44,29 @@ class Register extends Component {
         console.log(this.state.user);
         this.props.signUpUser(this.state.user);
     }
+
+    submit = () => {
+        confirmAlert({
+            title: 'Navigate to login page?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        this.props.setRegisteredFlag();
+                        this.props.history.push('/login');
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => {
+                        this.props.setRegisteredFlag();
+                        this.props.history.push('/');
+                    }
+                }
+            ]
+        });
+    };
+
 
     render() {
         return (
@@ -92,6 +119,7 @@ class Register extends Component {
                                     Already registered <NavLink to='/login'>SignIn</NavLink>
                                 </p>
                             </Form>
+                            {this.props.registerSuccess ? this.submit() : null}
                         </div>
                     </div>
                 </div>
@@ -102,14 +130,15 @@ class Register extends Component {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        signUpUser
+        signUpUser,
+        setRegisteredFlag
     }, dispatch)
 }
 
 const mapStateToProps = state => {
-    const { loggedIn, user, registerError } = state.loginReducer;
+    const { registerSuccess, user, registerError } = state.loginReducer;
     return {
-        loggedIn,
+        registerSuccess,
         user,
         registerError
     }
